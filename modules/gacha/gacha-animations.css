@@ -1,0 +1,81 @@
+/* Gacha Animation System */
+
+    .motion-dial-button:active,
+    .motion-outlet-capsule:active {
+      transform: scale(0.97);
+    }
+
+    .motion-capsule,
+    .motion-dial-button,
+    .motion-outlet-capsule {
+      transition: transform var(--motion-hover) var(--ease-out-soft), opacity var(--motion-hover) var(--ease-out-soft), filter var(--motion-hover) var(--ease-out-soft);
+    }
+
+      .group:hover .motion-capsule { transform: translateY(-2px) scale(1.06); }
+      .motion-dial-button:hover { transform: scale(1.035); }
+      .motion-outlet-capsule:hover { transform: translateY(-2px) scale(1.06); }
+    }
+
+      .group:hover .motion-capsule,
+      .motion-dial-button:hover,
+      .motion-outlet-capsule:hover { transform: none; }
+    }
+
+    @keyframes spin-dial {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(720deg); }
+    }
+
+    .animate-spin-dial {
+      animation: spin-dial 0.92s var(--ease-emphasized) forwards;
+    }
+
+    @keyframes capsule-jostle {
+      0%, 100% { transform: translateY(0); }
+      46% { transform: translateY(-4px); }
+      72% { transform: translateY(1px); }
+    }
+
+    .animate-capsule-jostle {
+      animation: capsule-jostle 0.62s var(--ease-out-soft) infinite;
+    }
+
+    @keyframes capsule-exit {
+      0% { opacity: 0; transform: translateY(-12px) scale(0.86); }
+      58% { opacity: 1; transform: translateY(2px) scale(1.03); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .animate-capsule-exit {
+      animation: capsule-exit 0.58s var(--ease-out-soft) both;
+    }
+
+    @keyframes capsule-settle {
+      0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+      36% { transform: translate3d(-1px, -3px, 0) rotate(-0.9deg); }
+      66% { transform: translate3d(1px, 1px, 0) rotate(0.7deg); }
+      100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    }
+
+    .animate-capsule-settle {
+      animation: capsule-settle 0.78s var(--ease-out-soft) both;
+    }
+
+      .animate-capsule-jostle,
+      .animate-capsule-settle,
+      .animate-spin-dial,
+      .animate-capsule-exit,
+      .animate-soft-ping {
+        animation: none !important;
+      }
+
+    /* Capsule Pop */
+    @keyframes top-crack {
+      0% { transform: rotate(0deg) translate(0,0); }
+      100% { transform: rotate(-45deg) translate(-20px, -30px); opacity: 0;}
+    }
+
+    @keyframes bottom-crack {
+      0% { transform: rotate(0deg) translate(0,0); }
+      100% { transform: rotate(45deg) translate(20px, 30px); opacity: 0;}
+    }

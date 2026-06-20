@@ -1,0 +1,58 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+
+# Temporary files
+*.tmp
+*.temp
+
+# Original archives (keep backups but not in git)
+sonic-patrol-preview-ORIGINAL-ARCHIVED.html
+ye-jian-preview-v8-refined-backup.html
+sonic-patrol-preview.html
+ye-jian-preview-v8-refined.html
+
+# Large assets (use Git LFS or CDN for these)
+assets/portfolio/
+
+# Screenshots and debug files
+*.png
+screenshot-*.png
+homepage-*.png
+decathlon-*.png
+
+# Test files
+test-*.html
+
+# Decoded source and temp docs
+docs/decoded-source.js
+renderDecathlonDetail.txt
+ye-jian-app-code*.tsx
+sonic-app-code.tsx
+verify_*.py
+
+# Plan docs (not needed in repo)
+PORTFOLIO_REORGANIZATION_PLAN.md
+assets/README.md
+shared/README.md
+projects/*/README.md
+.github/workflows/README.md
+README.md
