@@ -1,8 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
+import fs from 'fs';
 
 export default defineConfig({
+  base: '/ye-jian-portfolio/',
   plugins: [react()],
   resolve: {
     alias: {
@@ -19,8 +21,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         ...Object.fromEntries(
-          // Auto-discover all project detail pages
-          require('fs').readdirSync('./projects')
+          fs.readdirSync('./projects')
             .filter(d => d !== 'template')
             .map(d => [d, resolve(__dirname, `projects/${d}/index.html`)])
         )
