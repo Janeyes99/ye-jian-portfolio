@@ -132,22 +132,4 @@ function App() {
     className: "flex-grow z-10 relative"
   }, renderPage()), /* @__PURE__ */ React.createElement(Footer, null))));
 }
-export {
-  App as default
-};
-";
-
-try {
-  const moduleUrl = URL.createObjectURL(new Blob([appCode], { type: 'text/javascript' }));
-  const { default: App } = await import(moduleUrl);
-  createRoot(document.getElementById('root')).render(React.createElement(React.StrictMode, null, React.createElement(App)));
-} catch (error) {
-  const root = document.getElementById('root');
-  root.innerHTML = '<pre style="padding:24px;font-family:monospace;background:#fff;color:#18181b;min-height:100vh;white-space:pre-wrap;">Error: ' +
-    String(error && (error.stack || error)).replace(/[&<>]/g, function(m) { return {'&':'&amp;','<':'&lt;','>':'&gt;'}[m]; }) + '</pre>';
-}
-</script>
-</body>
-</html>
-
 export default Contact;
