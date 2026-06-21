@@ -528,7 +528,7 @@ var ProjectDetail = () => {
       /* @__PURE__ */ React.createElement(
         "div",
         {
-          className: "relative flex max-h-[92vh] max-w-[94vw] items-center justify-center overflow-hidden rounded-[24px] bg-white p-2 shadow-[0_32px_100px_-24px_rgba(0,0,0,0.5)] md:p-3",
+          className: "relative flex max-h-[92vh] max-w-[94vw] items-center justify-center overflow-hidden rounded-[18px] bg-transparent shadow-[0_32px_100px_-24px_rgba(0,0,0,0.5)]",
           onClick: (event) => event.stopPropagation()
         },
         /* @__PURE__ */ React.createElement(
@@ -1187,7 +1187,7 @@ var ProjectDetail = () => {
     /* @__PURE__ */ React.createElement(
       "div",
       {
-        className: "relative flex max-h-[92vh] max-w-[94vw] items-center justify-center overflow-hidden rounded-[24px] bg-white p-2 shadow-[0_32px_100px_-24px_rgba(0,0,0,0.5)] md:p-3",
+        className: "relative flex max-h-[92vh] max-w-[94vw] items-center justify-center overflow-hidden rounded-[18px] bg-transparent shadow-[0_32px_100px_-24px_rgba(0,0,0,0.5)]",
         onClick: (event) => event.stopPropagation()
       },
       /* @__PURE__ */ React.createElement(
