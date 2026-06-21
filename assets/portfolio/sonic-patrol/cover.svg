@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="0.56" stop-color="#eef2ff"/>
+      <stop offset="1" stop-color="#f5f3ff"/>
+    </linearGradient>
+    <radialGradient id="orb" cx="50%" cy="45%" r="62%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#dbeafe" stop-opacity="0.15"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" rx="72" fill="url(#bg)"/>
+  <circle cx="1170" cy="250" r="260" fill="url(#orb)"/>
+  <circle cx="270" cy="820" r="300" fill="#e0e7ff" opacity="0.35"/>
+  <text x="110" y="140" fill="#71717a" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="800" letter-spacing="10">WIX ARCHIVE</text>
+  <text x="110" y="510" fill="#18181b" font-family="Inter, Arial, sans-serif" font-size="92" font-weight="800" letter-spacing="-3">Sonic Patrol</text>
+  <text x="112" y="588" fill="#71717a" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="600">Local media slot prepared for migration</text>
+</svg>
