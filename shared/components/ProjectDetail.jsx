@@ -7,6 +7,93 @@ import { RouteContext } from '@/js/router';
 
 // NOTE: Imports may need adjustment for modular environment
 
+const COS_ASSET_BASE = "https://yejian-portfolio-assets-1445614055.cos.ap-hongkong.myqcloud.com/portfolio/";
+const previewCropRules = [
+  ["artificial-sky/process-journal/page-02.jpg", 0.0667, 0.0444, 0.1148, 0.0739, 1.5497],
+  ["artificial-sky/process-journal/page-03.jpg", 0.0622, 0.0533, 0.0975, 0.0959, 1.551],
+  ["artificial-sky/process-journal/page-04.jpg", 0.0333, 0.0333, 0.0519, 0.0456, 1.4628],
+  ["artificial-sky/process-journal/page-05.jpg", 0.0333, 0.0333, 0.0519, 0.0472, 1.4653],
+  ["artificial-sky/process-journal/page-06.jpg", 0.0333, 0.0333, 0.0472, 0.0456, 1.4552],
+  ["artificial-sky/process-journal/page-07.jpg", 0.0433, 0.0389, 0.077, 0.1085, 1.5939],
+  ["artificial-sky/process-journal/page-08.jpg", 0.1189, 0.1578, 0.0472, 0.0896, 1.1853],
+  ["artificial-sky/process-journal/page-09.jpg", 0.0333, 0.0333, 0.0519, 0.0456, 1.4628],
+  ["artificial-sky/process-journal/page-10.jpg", 0.0333, 0.0333, 0.0519, 0.0472, 1.4653],
+  ["artificial-sky/process-journal/page-11.jpg", 0.0333, 0.0333, 0.0519, 0.0472, 1.4653],
+  ["artificial-sky/process-journal/page-12.jpg", 0.0656, 0.0633, 0.0409, 0.0487, 1.3535],
+  ["artificial-sky/process-journal/page-13.jpg", 0.0333, 0.0333, 0.0519, 0.0456, 1.4628],
+  ["artificial-sky/process-journal/page-14.jpg", 0.0333, 0.0567, 0.0519, 0.077, 1.4777],
+  ["artificial-sky/process-journal/page-15.jpg", 0.0333, 0.0333, 0.0519, 0.0456, 1.4628],
+  ["artificial-sky/process-journal/page-16.jpg", 0.0333, 0.0611, 0.0519, 0.0016, 1.3532],
+  ["artificial-sky/process-journal/page-17.jpg", 0.0333, 0.0333, 0.0519, 0.0456, 1.4628],
+  ["artificial-sky/process-journal/page-18.jpg", 0.0333, 0.0333, 0.0456, 0.0472, 1.4552],
+  ["artificial-sky/process-journal/page-19.jpg", 0.0333, 0.0333, 0.0472, 0.0472, 1.4577],
+  ["backer/board.png", 0.3078, 0.4222, 0.5272, 0.4022, 18.6394],
+  ["backer/image-3.png", 0.3078, 0.5956, 0.5326, 0.3967, 6.6734],
+  ["backer/image-4.png", 0.0118, 0.0118, 0.03, 0.0222, 0.2914],
+  ["coins-in-the-sky/board.png", 0.3047, 0.2349, 0.0511, 0.0567, 0.2467],
+  ["passenger-screen-visual-impact/report-page-01.png", 0, 0, 0.0257, 0.0415, 1.9058],
+  ["passenger-screen-visual-impact/report-page-03.png", 0, 0, 0.0257, 0.0613, 1.9471],
+  ["passenger-screen-visual-impact/report-page-04.png", 0.0344, 0.0111, 0.0257, 0.1798, 2.1358],
+  ["passenger-screen-visual-impact/report-page-06.png", 0, 0, 0.0257, 0.0375, 1.8978],
+  ["passenger-screen-visual-impact/report-page-08.png", 0, 0, 0.0257, 0.0494, 1.9221],
+  ["passenger-screen-visual-impact/report-page-09.png", 0.0333, 0.0111, 0.0257, 0.0435, 1.825],
+  ["passenger-screen-visual-impact/report-page-10.png", 0, 0, 0.0257, 0.0356, 1.8938],
+  ["passenger-screen-visual-impact/report-page-11.png", 0, 0, 0.0257, 0.0514, 1.9262],
+  ["passenger-screen-visual-impact/report-page-13.png", 0.0344, 0.0111, 0.0257, 0.085, 1.9079],
+  ["passenger-screen-visual-impact/report-page-14.png", 0.0344, 0.0111, 0.0257, 0.0336, 1.8037],
+  ["passenger-screen-visual-impact/report-page-16.png", 0, 0, 0.0257, 0.0711, 1.9684],
+  ["passenger-screen-visual-impact/report-page-17.png", 0.0311, 0, 0.0257, 0.0336, 1.831],
+  ["passenger-screen-visual-impact/report-page-18.png", 0.0333, 0.0111, 0.0257, 0.0474, 1.8328],
+  ["passenger-screen-visual-impact/report-page-19.png", 0.0244, 0.0111, 0.0257, 0.0791, 1.9152],
+  ["passenger-screen-visual-impact/report-page-21.png", 0, 0, 0.0257, 0.0534, 1.9304],
+  ["path/behavior-map.jpg", 0.0133, 0.0144, 0.0692, 0.0566, 1.5731],
+  ["path/user-task.png", 0.0667, 0.07, 0.1478, 0.1336, 1.6991],
+  ["path/validation.png", 0.0311, 0.0289, 0.066, 0.022, 1.4577],
+  ["riverside-changsha/board.png", 0.3074, 0.2835, 0.0544, 0.0822, 0.2433],
+  ["riverside-changsha/wechat/wechat-01.jpg", 0, 0, 0, 0.1436, 2.7415],
+  ["riverside-changsha/wechat/wechat-02.gif", 0, 0, 0, 0.1533, 0.5529],
+  ["riverside-changsha/wechat/wechat-04.gif", 0.3356, 0.3356, 0.2133, 0.2148, 0.7668],
+  ["riverside-changsha/wechat/wechat-07.gif", 0.0972, 0, 0, 0, 0.8262],
+  ["riverside-changsha/wechat/wechat-08.gif", 0.4039, 0, 0, 0, 0.4757],
+  ["riverside-changsha/wechat/wechat-10.gif", 0.3956, 0, 0, 0, 0.3382],
+  ["riverside-changsha/wechat/wechat-36.jpg", 0.3111, 0.3189, 0, 0.2431, 2.0151],
+  ["riverside-changsha/wechat/wechat-37.jpg", 0.34, 0.34, 0.2249, 0.1664, 0.8641],
+  ["riverside-changsha/wechat/wechat-38.png", 0.924, 0.0227, 0.2, 0.2429, 1.0256],
+  ["riverside-changsha/wechat/wechat-39.jpg", 0.1653, 0.1653, 0.0089, 0.0378, 0.194],
+  ["riverside-changsha/wechat/wechat-40.png", 0.0772, 0.1103, 0.1618, 0.1985, 1.2701],
+  ["sonic-patrol/pdf-pages/page-1.png", 0.04, 0.0467, 0.05, 0.068, 1.8616],
+  ["sonic-patrol/pdf-pages/page-2.png", 0.04, 0.0456, 0.05, 0.084, 1.8983],
+  ["sonic-patrol/pdf-pages/page-3.png", 0.04, 0.1022, 0.05, 0.058, 1.7288],
+  ["sonic-patrol/pdf-pages/page-4.png", 0.04, 0.0467, 0.05, 0.06, 1.8449],
+  ["sonic-patrol/pdf-pages/page-5.png", 0.04, 0.17, 0.05, 0.036, 1.5539],
+  ["tri-eco-service/pdf-pages/page-3.png", 0.0311, 0, 0, 0, 1.7225],
+  ["tri-eco-service/pdf-pages/page-4.png", 0, 0, 0.0316, 0, 1.8358],
+  ["tri-eco-service/pdf-pages/page-5.png", 0.05, 0.0411, 0.0316, 0.0573, 1.7735]
+];
+const previewCropMap = new Map(previewCropRules.map(([path, left, right, top, bottom, ratio]) => [path, { left, right, top, bottom, ratio }]));
+const normalizePreviewSrc = (src = "") => String(src || "").split("?")[0].replace(COS_ASSET_BASE, "").replace(/^.*assets\/portfolio\//, "");
+const getPreviewCrop = (src) => previewCropMap.get(normalizePreviewSrc(src));
+const getPreviewFrameStyle = (crop) => crop ? {
+  aspectRatio: String(crop.ratio),
+  width: `min(90vw, calc(88vh * ${crop.ratio}))`,
+  height: `min(88vh, calc(90vw / ${crop.ratio}))`
+} : void 0;
+const getPreviewImageStyle = (crop) => {
+  if (!crop) return void 0;
+  const contentWidth = Math.max(0.01, 1 - crop.left - crop.right);
+  const contentHeight = Math.max(0.01, 1 - crop.top - crop.bottom);
+  return {
+    position: "absolute",
+    left: `${-crop.left / contentWidth * 100}%`,
+    top: `${-crop.top / contentHeight * 100}%`,
+    width: `${100 / contentWidth}%`,
+    height: `${100 / contentHeight}%`,
+    maxWidth: "none",
+    maxHeight: "none",
+    objectFit: "fill"
+  };
+};
+
 var ProjectDetail = () => {
   const {
     route,
@@ -58,32 +145,32 @@ var ProjectDetail = () => {
   const renderFigure = (src, alt, caption, index) => /* @__PURE__ */ React.createElement("figure", {
     key: index,
     className: "overflow-hidden rounded-[24px] border border-white/90 bg-white/70 shadow-[0_18px_42px_-28px_rgba(15,23,42,0.10)]"
-  }, /* @__PURE__ */ React.createElement("a", {
-    href: src,
-    target: "_blank",
-    rel: "noreferrer",
-    className: "block"
+  }, /* @__PURE__ */ React.createElement("button", {
+    type: "button",
+    onClick: () => setCertificatePreview(src),
+    className: "block w-full cursor-zoom-in bg-transparent text-left",
+    "aria-label": lang2 === "en" ? "Open image preview" : "\u653E\u5927\u67E5\u770B\u56FE\u7247"
   }, /* @__PURE__ */ React.createElement("img", {
     src,
     alt: t(alt) || t(project.title),
     loading: project.slug === "passenger-screen-visual-impact" ? "eager" : "lazy",
-    className: "w-full h-auto object-contain bg-white"
+    className: "w-full h-auto object-contain"
   })), caption && /* @__PURE__ */ React.createElement("figcaption", {
     className: "px-5 py-4 text-sm leading-relaxed text-zinc-500 border-t border-zinc-100"
   }, t(caption)));
   const renderPaperFigure = (src, alt, caption, index) => /* @__PURE__ */ React.createElement("figure", {
     key: index,
     className: "overflow-hidden rounded-[24px] border border-zinc-200/80 bg-white shadow-[0_18px_46px_-32px_rgba(15,23,42,0.18)]"
-  }, /* @__PURE__ */ React.createElement("a", {
-    href: src,
-    target: "_blank",
-    rel: "noreferrer",
-    className: "block bg-white"
+  }, /* @__PURE__ */ React.createElement("button", {
+    type: "button",
+    onClick: () => setCertificatePreview(src),
+    className: "block w-full cursor-zoom-in bg-transparent text-left",
+    "aria-label": lang2 === "en" ? "Open image preview" : "\u653E\u5927\u67E5\u770B\u56FE\u7247"
   }, /* @__PURE__ */ React.createElement("img", {
     src,
     alt: t(alt) || t(project.title),
     loading: index === 0 ? "eager" : "lazy",
-    className: "block w-full h-auto object-contain bg-white"
+    className: "block w-full h-auto object-contain"
   })), caption && /* @__PURE__ */ React.createElement("figcaption", {
     className: "border-t border-zinc-100 bg-zinc-50/70 px-5 py-4 text-sm leading-relaxed text-zinc-500"
   }, t(caption)));
@@ -564,6 +651,7 @@ var ProjectDetail = () => {
   const primaryVideo = heroVideoBySlug[project.slug] || null;
   const primaryVideoSection = primaryVideo ? project.sections.find((section) => section.video === primaryVideo) : null;
   const activeCertificate = project.sections.find((section) => section.certificate?.src === certificatePreview);
+  const activePreviewCrop = getPreviewCrop(certificatePreview);
   const renderEditorialImage = (item, key, options = {}) => {
     const src = item?.src || item?.image;
     if (!src) return null;
@@ -579,7 +667,7 @@ var ProjectDetail = () => {
         {
           type: "button",
           onClick: () => setCertificatePreview(src),
-          className: `flex min-h-0 w-full flex-1 cursor-zoom-in items-center justify-center overflow-hidden bg-zinc-50/70 text-left ${options.mediaClassName || ""}`,
+          className: `flex min-h-0 w-full flex-1 cursor-zoom-in items-center justify-center overflow-hidden bg-transparent text-left ${options.mediaClassName || ""}`,
           "aria-label": lang2 === "en" ? "Open image preview" : "\u653E\u5927\u67E5\u770B\u56FE\u7247"
         },
         /* @__PURE__ */ React.createElement(
@@ -717,7 +805,7 @@ var ProjectDetail = () => {
       }
       const images = sec.images || [];
       const hasWideImage = Boolean(sec.image);
-      return /* @__PURE__ */ React.createElement("section", { key: `artificial-${i}`, className: "space-y-8" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-3xl" }, /* @__PURE__ */ React.createElement("p", { className: "mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-blue-600" }, sectionNumber), /* @__PURE__ */ React.createElement("h3", { className: "text-[clamp(1.7rem,3vw,2.6rem)] font-bold tracking-[-0.02em] leading-[1.08] text-zinc-900" }, t(sec.title)), t(sec.content) && /* @__PURE__ */ React.createElement("p", { className: "mt-5 max-w-[68ch] text-base md:text-lg leading-[1.8] font-medium text-zinc-600 whitespace-pre-wrap" }, t(sec.content))), hasWideImage && renderFigure(sec.image, sec.imageAlt, sec.caption, `artificial-image-${i}`), images.length === 4 && /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-5 md:grid-cols-2" }, images.map((image, index) => /* @__PURE__ */ React.createElement("figure", { key: `artificial-grid-${i}-${index}`, className: "overflow-hidden rounded-[26px] border border-white/90 bg-white/70 shadow-[0_18px_40px_-28px_rgba(15,23,42,0.14)]" }, /* @__PURE__ */ React.createElement("a", { href: image.src, target: "_blank", rel: "noreferrer", className: "block" }, /* @__PURE__ */ React.createElement("img", { src: image.src, alt: t(image.alt) || t(sec.title), loading: "lazy", className: "block h-full w-full object-cover aspect-[4/3] bg-white" })))), sec.caption && /* @__PURE__ */ React.createElement("p", { className: "max-w-[58ch] text-sm leading-[1.7] text-zinc-500" }, t(sec.caption))), images.length === 2 && /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-5 md:grid-cols-2" }, images.map((image, index) => renderFigure(image.src, image.alt, image.caption, `artificial-pair-${i}-${index}`))));
+      return /* @__PURE__ */ React.createElement("section", { key: `artificial-${i}`, className: "space-y-8" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-3xl" }, /* @__PURE__ */ React.createElement("p", { className: "mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-blue-600" }, sectionNumber), /* @__PURE__ */ React.createElement("h3", { className: "text-[clamp(1.7rem,3vw,2.6rem)] font-bold tracking-[-0.02em] leading-[1.08] text-zinc-900" }, t(sec.title)), t(sec.content) && /* @__PURE__ */ React.createElement("p", { className: "mt-5 max-w-[68ch] text-base md:text-lg leading-[1.8] font-medium text-zinc-600 whitespace-pre-wrap" }, t(sec.content))), hasWideImage && renderFigure(sec.image, sec.imageAlt, sec.caption, `artificial-image-${i}`), images.length === 4 && /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-5 md:grid-cols-2" }, images.map((image, index) => /* @__PURE__ */ React.createElement("figure", { key: `artificial-grid-${i}-${index}`, className: "overflow-hidden rounded-[26px] border border-white/90 bg-white/70 shadow-[0_18px_40px_-28px_rgba(15,23,42,0.14)]" }, /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => setCertificatePreview(image.src), className: "block w-full cursor-zoom-in bg-transparent text-left", "aria-label": lang2 === "en" ? "Open image preview" : "放大查看图片" }, /* @__PURE__ */ React.createElement("img", { src: image.src, alt: t(image.alt) || t(sec.title), loading: "lazy", className: "block h-full w-full object-cover aspect-[4/3]" })))), sec.caption && /* @__PURE__ */ React.createElement("p", { className: "max-w-[58ch] text-sm leading-[1.7] text-zinc-500" }, t(sec.caption))), images.length === 2 && /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-5 md:grid-cols-2" }, images.map((image, index) => renderFigure(image.src, image.alt, image.caption, `artificial-pair-${i}-${index}`))));
     }));
   };
   const renderPassengerScreenReportDetail = () => {
@@ -943,16 +1031,16 @@ var ProjectDetail = () => {
     if (!sec?.image) return null;
     return /* @__PURE__ */ React.createElement("figure", {
       className: "overflow-hidden rounded-[28px] border border-white/90 bg-white/80 shadow-[0_20px_50px_-34px_rgba(15,23,42,0.16)]"
-    }, /* @__PURE__ */ React.createElement("a", {
-      href: sec.image,
-      target: "_blank",
-      rel: "noreferrer",
-      className: "block bg-white"
+    }, /* @__PURE__ */ React.createElement("button", {
+      type: "button",
+      onClick: () => setCertificatePreview(sec.image),
+      className: "block w-full cursor-zoom-in bg-transparent text-left",
+      "aria-label": lang2 === "en" ? "Open image preview" : "放大查看图片"
     }, /* @__PURE__ */ React.createElement("img", {
       src: sec.image,
       alt: t(sec.imageAlt) || t(sec.title),
       loading: index < 2 ? "eager" : "lazy",
-      className: "block w-full max-h-[58vh] object-contain bg-white"
+      className: "block w-full max-h-[58vh] object-contain"
     })), sec.caption && /* @__PURE__ */ React.createElement("figcaption", {
       className: "border-t border-zinc-100 px-5 py-4 text-sm leading-relaxed text-zinc-500"
     }, t(sec.caption)));
@@ -1037,8 +1125,8 @@ var ProjectDetail = () => {
         { src: "assets/portfolio/coins-in-the-sky/photo-04.png", alt: { en: "Exhibition view photo 2", cn: "\u5C55\u793A\u8BB0\u5F55\u56FE 2" } }
       ]
     }];
-    const renderCoinsFigure = (src, alt, key, eager = false) => /* @__PURE__ */ React.createElement("figure", { key, className: "overflow-hidden rounded-[28px] border border-white/90 bg-white/80 shadow-[0_20px_48px_-32px_rgba(15,23,42,0.14)]" }, /* @__PURE__ */ React.createElement("a", { href: src, target: "_blank", rel: "noreferrer", className: "block bg-white" }, /* @__PURE__ */ React.createElement("img", { src, alt: t(alt), loading: eager ? "eager" : "lazy", className: "block h-full w-full object-cover aspect-[4/3]" })));
-    const renderValueFigure = (item, index) => /* @__PURE__ */ React.createElement("figure", { key: `coins-value-${index}`, className: "rounded-[24px] border border-zinc-200/80 bg-white/82 p-5 shadow-[0_18px_44px_-34px_rgba(15,23,42,0.16)]" }, /* @__PURE__ */ React.createElement("a", { href: item.src, target: "_blank", rel: "noreferrer", className: "block overflow-hidden rounded-[18px] border border-zinc-100 bg-zinc-50" }, /* @__PURE__ */ React.createElement("img", { src: item.src, alt: t(item.label), loading: "lazy", className: "block aspect-square w-full object-cover" })), /* @__PURE__ */ React.createElement("figcaption", { className: "pt-4 text-sm font-semibold leading-relaxed text-zinc-700" }, t(item.label)));
+    const renderCoinsFigure = (src, alt, key, eager = false) => /* @__PURE__ */ React.createElement("figure", { key, className: "overflow-hidden rounded-[28px] border border-white/90 bg-white/80 shadow-[0_20px_48px_-32px_rgba(15,23,42,0.14)]" }, /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => setCertificatePreview(src), className: "block w-full cursor-zoom-in bg-transparent text-left", "aria-label": lang2 === "en" ? "Open image preview" : "放大查看图片" }, /* @__PURE__ */ React.createElement("img", { src, alt: t(alt), loading: eager ? "eager" : "lazy", className: "block h-full w-full object-cover aspect-[4/3]" })));
+    const renderValueFigure = (item, index) => /* @__PURE__ */ React.createElement("figure", { key: `coins-value-${index}`, className: "rounded-[24px] border border-zinc-200/80 bg-white/82 p-5 shadow-[0_18px_44px_-34px_rgba(15,23,42,0.16)]" }, /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => setCertificatePreview(item.src), className: "block w-full cursor-zoom-in overflow-hidden rounded-[18px] border border-zinc-100 bg-transparent text-left", "aria-label": lang2 === "en" ? "Open image preview" : "放大查看图片" }, /* @__PURE__ */ React.createElement("img", { src: item.src, alt: t(item.label), loading: "lazy", className: "block aspect-square w-full object-cover" })), /* @__PURE__ */ React.createElement("figcaption", { className: "pt-4 text-sm font-semibold leading-relaxed text-zinc-700" }, t(item.label)));
     return /* @__PURE__ */ React.createElement("div", { className: "space-y-20 md:space-y-24" }, coinsSections.map((sec, i) => /* @__PURE__ */ React.createElement("section", { key: `coins-${sec.key}`, className: "space-y-8" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-3xl" }, /* @__PURE__ */ React.createElement("p", { className: "mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-blue-600" }, String(i + 1).padStart(2, "0")), /* @__PURE__ */ React.createElement("h3", { className: "text-[clamp(1.7rem,3vw,2.6rem)] font-bold tracking-[-0.02em] leading-[1.08] text-zinc-900" }, t(sec.title)), sec.content ? /* @__PURE__ */ React.createElement("p", { className: "mt-5 max-w-[68ch] text-base md:text-lg leading-[1.8] font-medium text-zinc-600 whitespace-pre-wrap" }, t(sec.content)) : null), sec.images?.length === 2 ? /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-5 md:grid-cols-2" }, sec.images.map((image, index) => renderCoinsFigure(image.src, image.alt, `coins-pair-${i}-${index}`, i === 0))) : null, sec.images?.length === 4 ? /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-5 md:grid-cols-2" }, sec.images.map((image, index) => renderCoinsFigure(image.src, image.alt, `coins-grid-${i}-${index}`))) : null, sec.motion?.length ? /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3" }, sec.motion.map((image, index) => renderCoinsFigure(image.src, image.alt, `coins-motion-${i}-${index}`))) : null, sec.values?.length ? /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4" }, sec.values.map((item, index) => renderValueFigure(item, index))) : null)));
   };
   const renderTriEcoDetail = () => {
@@ -1177,27 +1265,29 @@ var ProjectDetail = () => {
   ))));
   return /* @__PURE__ */ React.createElement("div", { className: "pt-32 md:pt-36 pb-28 px-5 md:px-8" }, /* @__PURE__ */ React.createElement("div", { className: "mx-auto max-w-[1320px]" }, renderEditorialHeader(), project.slug === "memory-parking-hmi" ? /* @__PURE__ */ React.createElement("div", { className: "touch-reveal border-t border-zinc-200/80 pt-20 mt-20 md:pt-28 md:mt-28" }, renderMemoryParkingDetail()) : project.slug === "passenger-screen-visual-impact" ? /* @__PURE__ */ React.createElement("div", { className: "touch-reveal mt-20 md:mt-28" }, renderPassengerScreenReportDetail()) : project.slug === "riverside-changsha" ? /* @__PURE__ */ React.createElement("div", { className: "touch-reveal border-t border-zinc-200/80 pt-20 mt-20 md:pt-28 md:mt-28" }, renderRiversideDetail()) : project.slug === "artificial-sky" ? /* @__PURE__ */ React.createElement("div", { className: "touch-reveal border-t border-zinc-200/80 pt-20 mt-20 md:pt-28 md:mt-28" }, renderArtificialSkyDetail()) : project.slug === "tri-eco-service" ? /* @__PURE__ */ React.createElement("div", { className: "touch-reveal border-t border-zinc-200/80 pt-20 mt-20 md:pt-28 md:mt-28" }, renderTriEcoDetail()) : project.slug === "sonic-patrol" ? /* @__PURE__ */ React.createElement("div", { className: "touch-reveal border-t border-zinc-200/80 pt-20 mt-20 md:pt-28 md:mt-28" }, renderSonicPatrolDetail()) : project.slug === "decathlon-website" ? /* @__PURE__ */ React.createElement("div", { className: "touch-reveal border-t border-zinc-200/80 pt-20 mt-20 md:pt-28 md:mt-28" }, renderDecathlonDetail()) : project.slug === "coins-in-the-sky" ? /* @__PURE__ */ React.createElement("div", { className: "touch-reveal border-t border-zinc-200/80 pt-20 mt-20 md:pt-28 md:mt-28" }, renderCoinsInTheSkyDetail()) : project.sections.length > 0 ? /* @__PURE__ */ React.createElement("div", null, project.sections.map(renderEditorialSection)) : /* @__PURE__ */ React.createElement("div", { className: "touch-reveal border-t border-zinc-200/80 pt-20 mt-20 md:pt-28 md:mt-28 text-zinc-500 text-lg font-medium" }, lang2 === "en" ? "Documentation in progress." : "\u5185\u5BB9\u6574\u7406\u4E2D\u3002"), certificatePreview && !activeCertificate && /* @__PURE__ */ React.createElement(
     "div",
-    {
-      className: "fixed inset-0 z-[100] flex items-center justify-center bg-zinc-950/70 p-4 backdrop-blur-sm animate-fade-in-simple md:p-8",
+      {
+        className: "fixed inset-0 z-[100] flex items-center justify-center bg-zinc-950/70 p-4 backdrop-blur-sm animate-fade-in-simple md:p-8",
       role: "dialog",
       "aria-modal": "true",
       "aria-label": lang2 === "en" ? "Image preview" : "\u56FE\u7247\u9884\u89C8",
       onClick: () => setCertificatePreview(null)
     },
-    /* @__PURE__ */ React.createElement(
-      "div",
-      {
-        className: "relative flex max-h-[92vh] max-w-[94vw] items-center justify-center overflow-hidden rounded-[18px] bg-transparent shadow-[0_32px_100px_-24px_rgba(0,0,0,0.5)]",
-        onClick: (event) => event.stopPropagation()
-      },
       /* @__PURE__ */ React.createElement(
-        "img",
+        "div",
         {
-          src: certificatePreview,
-          alt: t(project.title),
-          className: "block max-h-[88vh] max-w-[90vw] object-contain"
-        }
-      ),
+          className: "relative flex max-h-[92vh] max-w-[94vw] items-center justify-center overflow-hidden rounded-[18px] bg-transparent shadow-[0_32px_100px_-24px_rgba(0,0,0,0.5)]",
+          style: getPreviewFrameStyle(activePreviewCrop),
+          onClick: (event) => event.stopPropagation()
+        },
+        /* @__PURE__ */ React.createElement(
+          "img",
+          {
+            src: certificatePreview,
+            alt: t(project.title),
+            className: "block max-h-[88vh] max-w-[90vw] object-contain",
+            style: getPreviewImageStyle(activePreviewCrop)
+          }
+        ),
       /* @__PURE__ */ React.createElement(
         "button",
         {
