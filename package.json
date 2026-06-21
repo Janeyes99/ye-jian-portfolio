@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "rm -rf dist && mkdir -p dist && cp index.html dist/index.html && cp -R assets dist/assets",
+    "build": "rm -rf dist && mkdir -p dist && cp index.html dist/index.html && ([ ! -d assets ] || cp -R assets dist/assets)",
     "preview": "vite preview"
   },
   "devDependencies": {

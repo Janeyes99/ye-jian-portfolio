@@ -4,6 +4,11 @@ node_modules/
 # Build output
 dist/
 
+# Large portfolio media lives in Tencent COS.
+# Keep local working copies out of GitHub so agents do not accidentally upload
+# hundreds of MB of images/videos into the code repo.
+assets/portfolio/
+
 # IDE
 .vscode/
 .idea/
