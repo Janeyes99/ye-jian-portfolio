@@ -517,24 +517,28 @@ var ProjectDetail = () => {
   };
   const renderTouchNGoDetail = () => {
     const [intro, method, designTool, applications, wallOrganizer, documentation, outcome] = project.sections;
-    const renderEditorialFigure = (item, key, className = "", imageClassName = "w-full h-auto object-contain") => /* @__PURE__ */ React.createElement("figure", { key, className: `touch-media overflow-hidden rounded-[24px] border border-zinc-200/45 bg-transparent shadow-[0_18px_54px_-42px_rgba(15,23,42,0.20)] ${className}` }, /* @__PURE__ */ React.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: () => setCertificatePreview(item.previewSrc || item.src || item.image),
-        className: "block w-full cursor-zoom-in overflow-hidden bg-transparent text-left",
-        "aria-label": lang2 === "en" ? "Open image preview" : "\u653E\u5927\u67E5\u770B\u56FE\u7247"
-      },
-      /* @__PURE__ */ React.createElement(
-        "img",
+    const renderEditorialFigure = (item, key, className = "", imageClassName = "w-full h-auto object-contain", options = {}) => {
+      const mediaWrapClass = options.mediaWrapClass || "";
+      const captionClassName = options.captionClassName || "border-t border-zinc-100 px-5 py-4 text-sm leading-[1.65] text-zinc-500";
+      return /* @__PURE__ */ React.createElement("figure", { key, className: `touch-media overflow-hidden rounded-[24px] border border-zinc-200/45 bg-transparent shadow-[0_18px_54px_-42px_rgba(15,23,42,0.20)] ${className}` }, /* @__PURE__ */ React.createElement(
+        "button",
         {
-          src: item.src || item.image,
-          alt: t(item.alt || item.imageAlt) || t(project.title),
-          loading: "lazy",
-          className: imageClassName
-        }
-      )
-    ), item.caption && /* @__PURE__ */ React.createElement("figcaption", { className: "border-t border-zinc-100 px-5 py-4 text-sm leading-[1.65] text-zinc-500" }, t(item.caption)));
+          type: "button",
+          onClick: () => setCertificatePreview(item.previewSrc || item.src || item.image),
+          className: `block w-full cursor-zoom-in overflow-hidden bg-transparent text-left ${mediaWrapClass}`,
+          "aria-label": lang2 === "en" ? "Open image preview" : "\u653E\u5927\u67E5\u770B\u56FE\u7247"
+        },
+        /* @__PURE__ */ React.createElement(
+          "img",
+          {
+            src: item.src || item.image,
+            alt: t(item.alt || item.imageAlt) || t(project.title),
+            loading: "lazy",
+            className: imageClassName
+          }
+        )
+      ), item.caption && /* @__PURE__ */ React.createElement("figcaption", { className: captionClassName }, t(item.caption)));
+    };
     return /* @__PURE__ */ React.createElement("div", { className: "pt-32 md:pt-36 pb-28 px-5 md:px-8" }, /* @__PURE__ */ React.createElement("div", { className: "mx-auto max-w-[1320px]" }, /* @__PURE__ */ React.createElement(
       "button",
       {
@@ -586,16 +590,24 @@ var ProjectDetail = () => {
       "touch-tool-cd",
       "w-full bg-transparent",
       "block w-full h-auto object-contain"
-    )), designTool.caption && /* @__PURE__ */ React.createElement("p", { className: "mt-4 text-sm leading-[1.65] text-zinc-500" }, t(designTool.caption))), /* @__PURE__ */ React.createElement("section", { className: "touch-reveal rounded-[30px] bg-zinc-100/70 px-5 py-16 md:px-10 md:py-24 lg:px-14" }, /* @__PURE__ */ React.createElement("div", { className: "mx-auto mb-12 max-w-3xl text-center" }, /* @__PURE__ */ React.createElement("p", { className: "mb-5 text-[10px] font-bold uppercase tracking-[0.18em] text-blue-600" }, "04 / ", lang2 === "en" ? "Applications" : "\u5E94\u7528\u8BBE\u8BA1"), /* @__PURE__ */ React.createElement("h2", { className: "text-[clamp(1.8rem,3.5vw,3rem)] font-semibold leading-[1.08] tracking-[-0.025em] text-zinc-900" }, t(applications.title)), /* @__PURE__ */ React.createElement("p", { className: "mt-6 text-base font-medium leading-[1.82] text-zinc-600 md:text-lg" }, t(applications.content))), /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-stretch" }, /* @__PURE__ */ React.createElement("div", { className: "lg:col-span-4" }, renderEditorialFigure(
+    )), designTool.caption && /* @__PURE__ */ React.createElement("p", { className: "mt-4 text-sm leading-[1.65] text-zinc-500" }, t(designTool.caption))), /* @__PURE__ */ React.createElement("section", { className: "touch-reveal rounded-[30px] bg-zinc-100/70 px-5 py-16 md:px-10 md:py-24 lg:px-14" }, /* @__PURE__ */ React.createElement("div", { className: "mx-auto mb-12 max-w-3xl text-center" }, /* @__PURE__ */ React.createElement("p", { className: "mb-5 text-[10px] font-bold uppercase tracking-[0.18em] text-blue-600" }, "04 / ", lang2 === "en" ? "Applications" : "\u5E94\u7528\u8BBE\u8BA1"), /* @__PURE__ */ React.createElement("h2", { className: "text-[clamp(1.8rem,3.5vw,3rem)] font-semibold leading-[1.08] tracking-[-0.025em] text-zinc-900" }, t(applications.title)), /* @__PURE__ */ React.createElement("p", { className: "mt-6 text-base font-medium leading-[1.82] text-zinc-600 md:text-lg" }, t(applications.content))), /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-stretch" }, /* @__PURE__ */ React.createElement("div", { className: "lg:col-span-4 lg:self-stretch" }, renderEditorialFigure(
       applications.images[0],
       "touch-app-0",
-      "h-full bg-transparent",
-      "block h-auto w-full object-contain"
-    )), /* @__PURE__ */ React.createElement("div", { className: "lg:col-span-8" }, renderEditorialFigure(
+      "h-full bg-transparent flex flex-col",
+      "block h-full w-full object-contain",
+      {
+        mediaWrapClass: "flex min-h-[clamp(240px,26vw,340px)] items-center justify-center px-4 py-4 lg:min-h-[clamp(360px,30vw,460px)]",
+        captionClassName: "mt-auto min-h-[6.5rem] border-t border-zinc-100 px-5 py-4 text-sm leading-[1.65] text-zinc-500"
+      }
+    )), /* @__PURE__ */ React.createElement("div", { className: "lg:col-span-8 lg:self-stretch" }, renderEditorialFigure(
       applications.images[1],
       "touch-app-1",
-      "h-full bg-transparent",
-      "block h-auto w-full object-contain"
+      "h-full bg-transparent flex flex-col",
+      "block h-full w-full object-contain",
+      {
+        mediaWrapClass: "flex min-h-[clamp(240px,26vw,340px)] items-center justify-center px-4 py-4 lg:min-h-[clamp(360px,30vw,460px)]",
+        captionClassName: "mt-auto min-h-[6.5rem] border-t border-zinc-100 px-5 py-4 text-sm leading-[1.65] text-zinc-500"
+      }
     )))), /* @__PURE__ */ React.createElement("section", { className: "touch-reveal py-20 md:py-28" }, /* @__PURE__ */ React.createElement("div", { className: "mb-10 grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end" }, /* @__PURE__ */ React.createElement("div", { className: "lg:col-span-5" }, /* @__PURE__ */ React.createElement("p", { className: "mb-5 text-[10px] font-bold uppercase tracking-[0.18em] text-blue-600" }, "05 / ", lang2 === "en" ? "Core Case" : "\u6838\u5FC3\u6848\u4F8B"), /* @__PURE__ */ React.createElement("h2", { className: "text-[clamp(1.8rem,3.5vw,3rem)] font-semibold leading-[1.08] tracking-[-0.025em] text-zinc-900" }, t(wallOrganizer.title))), /* @__PURE__ */ React.createElement("p", { className: "max-w-[42rem] text-base font-medium leading-[1.82] text-zinc-600 md:text-lg lg:col-span-7 lg:justify-self-end" }, t(wallOrganizer.content))), /* @__PURE__ */ React.createElement("div", null, renderEditorialFigure(
       { image: wallOrganizer.image, imageAlt: wallOrganizer.imageAlt, caption: wallOrganizer.caption },
       "touch-wall",
@@ -695,7 +707,15 @@ var ProjectDetail = () => {
       key,
       className: `touch-media overflow-hidden rounded-[26px] border border-zinc-800/20 bg-zinc-950 shadow-[0_28px_80px_-52px_rgba(15,23,42,0.46)] ${options.className || ""}`
     },
-    /* @__PURE__ */ React.createElement("video", { controls: true, playsInline: true, preload: "metadata", className: "block h-auto w-full bg-zinc-950 object-contain" }, /* @__PURE__ */ React.createElement("source", { src: video, type: "video/mp4" })),
+    /* @__PURE__ */ React.createElement("video", {
+      controls: options.controls ?? true,
+      autoPlay: Boolean(options.autoPlay),
+      loop: Boolean(options.loop),
+      muted: Boolean(options.muted),
+      playsInline: true,
+      preload: options.preload || "metadata",
+      className: `block h-auto w-full bg-zinc-950 object-contain ${options.videoClassName || ""}`
+    }, /* @__PURE__ */ React.createElement("source", { src: video, type: "video/mp4" })),
     caption && /* @__PURE__ */ React.createElement("figcaption", { className: "border-t border-white/10 bg-zinc-950 px-5 py-4 text-sm leading-relaxed text-zinc-400 md:px-7" }, t(caption))
   );
   const renderEditorialMediaPanel = (sec, index) => {
@@ -753,6 +773,7 @@ var ProjectDetail = () => {
   };
   const renderSectionMedia = (sec, index) => {
     const showVideo = sec.video && sec.video !== primaryVideo;
+    const videos = sec.videos || [];
     const images = [
       ...sec.image ? [{ src: sec.image, alt: sec.imageAlt, caption: sec.caption }] : [],
       ...sec.images || []
@@ -760,6 +781,19 @@ var ProjectDetail = () => {
     const mediaItems = [];
     if (showVideo) {
       mediaItems.push(renderEditorialVideo(sec.video, sec.caption, `video-${index}`));
+    }
+    if (videos.length > 0) {
+      mediaItems.push(
+        /* @__PURE__ */ React.createElement("div", { key: `videos-${index}`, className: "grid grid-cols-1 gap-5 md:grid-cols-2 md:items-stretch" }, videos.map((video, videoIndex) => renderEditorialVideo(video.src, video.caption, `video-${index}-${videoIndex}`, {
+          className: "min-h-0",
+          videoClassName: "aspect-[4/3]",
+          controls: false,
+          autoPlay: true,
+          loop: true,
+          muted: true,
+          preload: "auto"
+        })))
+      );
     }
     if (sec.mediaLabel) {
       mediaItems.push(/* @__PURE__ */ React.createElement("div", { key: `panel-${index}` }, renderEditorialMediaPanel(sec, index)));
@@ -799,7 +833,7 @@ var ProjectDetail = () => {
     if (!media) {
       return /* @__PURE__ */ React.createElement("section", { key: index, className: "touch-reveal border-t border-zinc-200/80 py-20 first:border-t-0 first:pt-36 md:py-28 md:first:pt-44" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-4xl" }, text));
     }
-  const useFullWidthMedia = Boolean(sec.fullWidthMedia || sec.images?.length > 1 || sec.video && sec.video !== primaryVideo || sec.mediaLabel);
+  const useFullWidthMedia = Boolean(sec.fullWidthMedia || sec.images?.length > 1 || sec.videos?.length > 0 || sec.video && sec.video !== primaryVideo || sec.mediaLabel);
     return /* @__PURE__ */ React.createElement("section", { key: index, className: "touch-reveal border-t border-zinc-200/80 py-20 first:border-t-0 first:pt-36 md:py-28 md:first:pt-44" }, useFullWidthMedia ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { className: "mb-10 grid grid-cols-1 gap-7 lg:grid-cols-12 lg:items-end lg:gap-14" }, /* @__PURE__ */ React.createElement("div", { className: "lg:col-span-10" }, text)), media) : /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-16" }, /* @__PURE__ */ React.createElement("div", { className: "lg:col-span-5" }, text), /* @__PURE__ */ React.createElement("div", { className: "lg:col-span-7" }, media)));
   };
   const renderArtificialSkyDetail = () => {

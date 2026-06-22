@@ -7,7 +7,7 @@
 | # | 项目目录 | 项目名 | 素材目录 | 状态 |
 |---|----------|--------|----------|------|
 | 1 | `artificial-sky/` | Artificial Sky | ✅ | 已就绪 |
-| 2 | `backer/` | Backer | ✅ | 已就绪 |
+| 2 | `backer/` | Patron | ✅ | 已就绪 |
 | 3 | `coins-in-the-sky/` | Coins in the Sky | ✅ | 已就绪 |
 | 4 | `confirmation-dialog/` | Confirmation Dialog Box in the Physical World | ✅ | 已就绪 |
 | 5 | `decathlon-website/` | Decathlon Website | ✅ | 已就绪 |

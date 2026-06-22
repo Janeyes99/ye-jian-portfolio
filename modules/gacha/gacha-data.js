@@ -204,8 +204,8 @@ export const gachaProjectCatalog = [{
   category: "service-brand",
   year: "2022",
   title: {
-    en: "Backer",
-    cn: "Backer"
+    en: "Patron",
+    cn: "\u9760\u5c71"
   },
   scores: {
     screenMatter: 40,
