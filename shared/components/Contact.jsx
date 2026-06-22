@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useContext } from 'react';
+import { BookOpen, Download, Instagram, Linkedin } from 'lucide-react';
 import { LanguageContext } from '@/js/i18n';
 import { RouteContext } from '@/js/router';
 
@@ -22,25 +23,37 @@ var Contact = () => {
   }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("span", {
     className: "text-xs font-bold uppercase tracking-widest text-zinc-400 block mb-4"
   }, lang2 === "en" ? "Direct Channel" : "\u8054\u7CFB\u90AE\u7BB1"), /* @__PURE__ */ React.createElement("a", {
-    href: "mailto:yejian.design@example.com",
+    href: "mailto:jian.ye.design@gmail.com",
     className: "text-3xl md:text-5xl font-bold text-zinc-900 hover:text-blue-600 motion-color break-words"
-  }, "yejian.design@example.com")), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("span", {
+  }, "jian.ye.design@gmail.com")), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("span", {
     className: "text-xs font-bold uppercase tracking-widest text-zinc-400 block mb-6"
   }, lang2 === "en" ? "Networks" : "\u793E\u4EA4\u5E73\u53F0"), /* @__PURE__ */ React.createElement("div", {
     className: "flex flex-wrap gap-4"
   }, /* @__PURE__ */ React.createElement("a", {
-    href: "#",
+    href: "https://www.linkedin.com/in/ye-jian-3ab38622b?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+    target: "_blank",
+    rel: "noreferrer",
     className: "flex items-center px-6 py-3 bg-zinc-50 border border-zinc-200 rounded-full text-base font-bold text-zinc-700 hover:bg-zinc-900 hover:text-white motion-surface motion-press shadow-sm"
   }, /* @__PURE__ */ React.createElement(Linkedin, {
     size: 20,
     className: "mr-3"
   }), " LinkedIn"), /* @__PURE__ */ React.createElement("a", {
-    href: "#",
+    href: "https://www.instagram.com/bravejye/",
+    target: "_blank",
+    rel: "noreferrer",
     className: "flex items-center px-6 py-3 bg-zinc-50 border border-zinc-200 rounded-full text-base font-bold text-zinc-700 hover:bg-zinc-900 hover:text-white motion-surface motion-press shadow-sm"
-  }, /* @__PURE__ */ React.createElement(Dribbble, {
+  }, /* @__PURE__ */ React.createElement(Instagram, {
     size: 20,
     className: "mr-3"
-  }), " Behance"))), /* @__PURE__ */ React.createElement("div", {
+  }), " Instagram"), /* @__PURE__ */ React.createElement("a", {
+    href: "https://www.xiaohongshu.com/search_result?keyword=jy582311857",
+    target: "_blank",
+    rel: "noreferrer",
+    className: "flex items-center px-6 py-3 bg-zinc-50 border border-zinc-200 rounded-full text-base font-bold text-zinc-700 hover:bg-zinc-900 hover:text-white motion-surface motion-press shadow-sm"
+  }, /* @__PURE__ */ React.createElement(BookOpen, {
+    size: 20,
+    className: "mr-3"
+  }), lang2 === "en" ? " Xiaohongshu" : " 小红书"))), /* @__PURE__ */ React.createElement("div", {
     className: "pt-10 border-t border-zinc-200"
   }, /* @__PURE__ */ React.createElement("button", {
     className: "flex items-center justify-center w-full md:w-auto px-10 py-5 bg-zinc-900 text-white rounded-full hover:bg-blue-600 motion-color font-bold text-base shadow-xl"
