@@ -189,7 +189,7 @@ var ProjectDetail = () => {
       src: pages[current].src,
       alt: pages[current].alt ? typeof pages[current].alt === "object" ? pages[current].alt.en || pages[current].alt.cn : pages[current].alt : "",
       loading: "lazy",
-      className: "w-full h-auto object-contain max-h-[85vh] mx-auto"
+      className: "w-full h-auto object-contain mx-auto"
     })), /* @__PURE__ */ React.createElement("div", {
       className: "flex items-center justify-between px-5 py-4 border-t border-zinc-100 bg-transparent"
     }, /* @__PURE__ */ React.createElement("button", {
@@ -232,7 +232,7 @@ var ProjectDetail = () => {
       controls: true,
       playsInline: true,
       preload: "metadata",
-      className: "w-full aspect-video bg-zinc-950"
+      className: "h-auto w-full bg-zinc-950 object-contain"
     }, /* @__PURE__ */ React.createElement("source", {
       src: sec.video,
       type: "video/mp4"
@@ -273,12 +273,12 @@ var ProjectDetail = () => {
     const mediaNotes = t(sec.mediaNotes) || [];
     const visualBreakdown = t(sec.visualBreakdown) || [];
     return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", {
-      className: "relative aspect-video bg-[radial-gradient(circle_at_50%_42%,rgba(37,99,235,0.26),transparent_34%),linear-gradient(135deg,#0b0b0b,#171717_48%,#050505)]"
+      className: "relative flex min-h-[240px] items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_50%_42%,rgba(37,99,235,0.26),transparent_34%),linear-gradient(135deg,#0b0b0b,#171717_48%,#050505)]"
     }, sec.image ? /* @__PURE__ */ React.createElement("img", {
       src: sec.image,
       alt: t(sec.imageAlt) || t(sec.mediaLabel) || t(sec.title),
       loading: "lazy",
-      className: "h-full w-full object-cover"
+      className: "h-full w-full object-contain"
     }) : /* @__PURE__ */ React.createElement("div", {
       className: "absolute inset-0 flex flex-col justify-between p-6 md:p-8"
     }, /* @__PURE__ */ React.createElement("div", {
@@ -554,7 +554,7 @@ var ProjectDetail = () => {
       },
       t(link.label),
       /* @__PURE__ */ React.createElement(ArrowRight, { size: 15 })
-    )))), /* @__PURE__ */ React.createElement("section", { className: "touch-reveal mt-10 md:mt-14" }, /* @__PURE__ */ React.createElement("figure", { className: "overflow-hidden rounded-[26px] border border-zinc-800/20 bg-zinc-950 shadow-[0_28px_80px_-52px_rgba(15,23,42,0.46)]" }, /* @__PURE__ */ React.createElement("video", { controls: true, playsInline: true, preload: "metadata", className: "block w-full aspect-video bg-zinc-950" }, /* @__PURE__ */ React.createElement("source", { src: intro.video, type: "video/mp4" })), /* @__PURE__ */ React.createElement("figcaption", { className: "border-t border-white/10 bg-zinc-950 px-5 py-4 text-sm leading-relaxed text-zinc-400 md:px-7" }, t(intro.caption)))), /* @__PURE__ */ React.createElement("section", { className: "touch-reveal space-y-10 pb-20 pt-36 md:pb-28 md:pt-44" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-3xl" }, /* @__PURE__ */ React.createElement("p", { className: "mb-5 text-[10px] font-bold uppercase tracking-[0.18em] text-blue-600" }, "01 / ", lang2 === "en" ? "Overview" : "\u9879\u76EE\u6982\u89C8"), /* @__PURE__ */ React.createElement("h2", { className: "text-[clamp(1.8rem,3.5vw,3rem)] font-semibold leading-[1.08] tracking-[-0.025em] text-zinc-900" }, t(intro.title)), /* @__PURE__ */ React.createElement("p", { className: "mt-6 max-w-[36rem] text-base font-medium leading-[1.82] text-zinc-600 md:text-lg" }, t(intro.content))), /* @__PURE__ */ React.createElement("div", { className: "max-w-5xl" }, renderEditorialFigure(
+    )))), /* @__PURE__ */ React.createElement("section", { className: "touch-reveal mt-10 md:mt-14" }, /* @__PURE__ */ React.createElement("figure", { className: "overflow-hidden rounded-[26px] border border-zinc-800/20 bg-zinc-950 shadow-[0_28px_80px_-52px_rgba(15,23,42,0.46)]" }, /* @__PURE__ */ React.createElement("video", { controls: true, playsInline: true, preload: "metadata", className: "block h-auto w-full bg-zinc-950 object-contain" }, /* @__PURE__ */ React.createElement("source", { src: intro.video, type: "video/mp4" })), /* @__PURE__ */ React.createElement("figcaption", { className: "border-t border-white/10 bg-zinc-950 px-5 py-4 text-sm leading-relaxed text-zinc-400 md:px-7" }, t(intro.caption)))), /* @__PURE__ */ React.createElement("section", { className: "touch-reveal space-y-10 pb-20 pt-36 md:pb-28 md:pt-44" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-3xl" }, /* @__PURE__ */ React.createElement("p", { className: "mb-5 text-[10px] font-bold uppercase tracking-[0.18em] text-blue-600" }, "01 / ", lang2 === "en" ? "Overview" : "\u9879\u76EE\u6982\u89C8"), /* @__PURE__ */ React.createElement("h2", { className: "text-[clamp(1.8rem,3.5vw,3rem)] font-semibold leading-[1.08] tracking-[-0.025em] text-zinc-900" }, t(intro.title)), /* @__PURE__ */ React.createElement("p", { className: "mt-6 max-w-[36rem] text-base font-medium leading-[1.82] text-zinc-600 md:text-lg" }, t(intro.content))), /* @__PURE__ */ React.createElement("div", { className: "max-w-5xl" }, renderEditorialFigure(
       {
         image: "assets/portfolio/touch-n-go/reusable-fastening-units.png",
         imageAlt: {
@@ -661,7 +661,7 @@ var ProjectDetail = () => {
   const renderEditorialImage = (item, key, options = {}) => {
     const src = item?.src || item?.image;
     if (!src) return null;
-    const imageClassName = options.imageClassName || "block h-auto max-h-[76vh] w-full object-contain";
+    const imageClassName = options.imageClassName || "block h-auto w-full object-contain";
     return /* @__PURE__ */ React.createElement(
       "figure",
       {
@@ -695,13 +695,13 @@ var ProjectDetail = () => {
       key,
       className: `touch-media overflow-hidden rounded-[26px] border border-zinc-800/20 bg-zinc-950 shadow-[0_28px_80px_-52px_rgba(15,23,42,0.46)] ${options.className || ""}`
     },
-    /* @__PURE__ */ React.createElement("video", { controls: true, playsInline: true, preload: "metadata", className: "block w-full aspect-video bg-zinc-950" }, /* @__PURE__ */ React.createElement("source", { src: video, type: "video/mp4" })),
+    /* @__PURE__ */ React.createElement("video", { controls: true, playsInline: true, preload: "metadata", className: "block h-auto w-full bg-zinc-950 object-contain" }, /* @__PURE__ */ React.createElement("source", { src: video, type: "video/mp4" })),
     caption && /* @__PURE__ */ React.createElement("figcaption", { className: "border-t border-white/10 bg-zinc-950 px-5 py-4 text-sm leading-relaxed text-zinc-400 md:px-7" }, t(caption))
   );
   const renderEditorialMediaPanel = (sec, index) => {
     const mediaNotes = t(sec.mediaNotes) || [];
     const visualBreakdown = t(sec.visualBreakdown) || [];
-    return /* @__PURE__ */ React.createElement("figure", { className: "touch-media overflow-hidden rounded-[24px] border border-zinc-200/45 bg-transparent shadow-[0_18px_54px_-42px_rgba(15,23,42,0.20)]" }, /* @__PURE__ */ React.createElement("div", { className: "relative aspect-video overflow-hidden bg-[radial-gradient(circle_at_50%_42%,rgba(59,130,246,0.10),transparent_38%),linear-gradient(135deg,#f8fafc,#ffffff_48%,#eef2ff)]" }, sec.image ? /* @__PURE__ */ React.createElement(
+    return /* @__PURE__ */ React.createElement("figure", { className: "touch-media overflow-hidden rounded-[24px] border border-zinc-200/45 bg-transparent shadow-[0_18px_54px_-42px_rgba(15,23,42,0.20)]" }, /* @__PURE__ */ React.createElement("div", { className: "relative flex min-h-[240px] items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_50%_42%,rgba(59,130,246,0.10),transparent_38%),linear-gradient(135deg,#f8fafc,#ffffff_48%,#eef2ff)]" }, sec.image ? /* @__PURE__ */ React.createElement(
       "button",
       {
         type: "button",
@@ -715,7 +715,7 @@ var ProjectDetail = () => {
           src: sec.image,
           alt: t(sec.imageAlt) || t(sec.mediaLabel) || t(sec.title),
           loading: "lazy",
-          className: "h-full w-full object-cover"
+          className: "h-full w-full object-contain"
         }
       )
     ) : /* @__PURE__ */ React.createElement("div", { className: "absolute inset-0 flex flex-col justify-between p-6 md:p-8" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center justify-between gap-4" }, /* @__PURE__ */ React.createElement("span", { className: "rounded-full border border-zinc-200 bg-white/75 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-zinc-500" }, String(index + 1).padStart(2, "0")), /* @__PURE__ */ React.createElement("span", { className: "text-[10px] font-bold uppercase tracking-[0.18em] text-blue-600/70" }, lang2 === "en" ? "Visual frame" : "\u89C6\u89C9\u6846\u67B6")), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: "mb-4 max-w-[20rem] text-[clamp(1.35rem,2.5vw,2.2rem)] font-semibold leading-[1.08] tracking-[-0.02em] text-zinc-900" }, t(sec.mediaLabel)), mediaNotes.length > 0 && /* @__PURE__ */ React.createElement("div", { className: "flex flex-wrap gap-2" }, mediaNotes.map((note, noteIndex) => /* @__PURE__ */ React.createElement("span", { key: noteIndex, className: "rounded-full border border-zinc-200 bg-white/82 px-3 py-1.5 text-[11px] font-semibold text-zinc-600" }, note)))))), visualBreakdown.length > 0 && /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-px border-t border-zinc-100 bg-zinc-100 sm:grid-cols-3" }, visualBreakdown.map((item, itemIndex) => /* @__PURE__ */ React.createElement("div", { key: itemIndex, className: "bg-white px-4 py-4" }, /* @__PURE__ */ React.createElement("p", { className: "mb-2 text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-400" }, lang2 === "en" ? `Visual ${itemIndex + 1}` : `\u753B\u9762 ${itemIndex + 1}`), /* @__PURE__ */ React.createElement("p", { className: "text-sm font-semibold leading-snug text-zinc-700" }, typeof item === "object" ? t(item) : item)))), sec.caption && /* @__PURE__ */ React.createElement("figcaption", { className: "border-t border-zinc-100 bg-transparent px-5 py-4 text-sm leading-[1.65] text-zinc-500" }, t(sec.caption)));
@@ -747,7 +747,7 @@ var ProjectDetail = () => {
         src: sec.certificate.src,
         alt: t(sec.certificate.alt),
         loading: "lazy",
-        className: "max-h-[68vh] w-full object-contain bg-white"
+        className: "h-auto w-full object-contain bg-white"
       }
     ))));
   };
@@ -767,7 +767,7 @@ var ProjectDetail = () => {
       mediaItems.push(
         renderEditorialImage(images[0], `image-${index}-0`, {
           className: "w-full",
-          imageClassName: "block h-auto max-h-[76vh] w-full object-contain"
+          imageClassName: "block h-auto w-full object-contain"
         })
       );
     } else if (images.length === 2) {
@@ -782,8 +782,8 @@ var ProjectDetail = () => {
       mediaItems.push(
         /* @__PURE__ */ React.createElement("div", { key: `images-${index}`, className: "grid grid-cols-1 gap-5 md:grid-cols-2" }, images.map((image, imageIndex) => renderEditorialImage(image, `image-${index}-${imageIndex}`, {
           className: imageIndex === 0 && images.length % 2 === 1 ? "md:col-span-2" : "",
-          mediaClassName: imageIndex === 0 && images.length % 2 === 1 ? "max-h-[76vh]" : "aspect-[4/3]",
-          imageClassName: imageIndex === 0 && images.length % 2 === 1 ? "block h-auto max-h-[76vh] w-full object-contain" : "block h-full w-full object-contain"
+          mediaClassName: imageIndex === 0 && images.length % 2 === 1 ? "" : "aspect-[4/3]",
+          imageClassName: imageIndex === 0 && images.length % 2 === 1 ? "block h-auto w-full object-contain" : "block h-full w-full object-contain"
         })))
       );
     }
@@ -811,7 +811,7 @@ var ProjectDetail = () => {
       }
       const images = sec.images || [];
       const hasWideImage = Boolean(sec.image);
-      return /* @__PURE__ */ React.createElement("section", { key: `artificial-${i}`, className: "space-y-8" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-3xl" }, /* @__PURE__ */ React.createElement("p", { className: "mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-blue-600" }, sectionNumber), /* @__PURE__ */ React.createElement("h3", { className: "text-[clamp(1.7rem,3vw,2.6rem)] font-bold tracking-[-0.02em] leading-[1.08] text-zinc-900" }, t(sec.title)), t(sec.content) && /* @__PURE__ */ React.createElement("p", { className: "mt-5 max-w-[68ch] text-base md:text-lg leading-[1.8] font-medium text-zinc-600 whitespace-pre-wrap" }, t(sec.content))), hasWideImage && renderFigure(sec.image, sec.imageAlt, sec.caption, `artificial-image-${i}`), images.length === 4 && /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-5 md:grid-cols-2" }, images.map((image, index) => /* @__PURE__ */ React.createElement("figure", { key: `artificial-grid-${i}-${index}`, className: "overflow-hidden rounded-[26px] border border-zinc-200/45 bg-transparent shadow-[0_18px_40px_-28px_rgba(15,23,42,0.14)]" }, /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => setCertificatePreview(image.src), className: "block w-full cursor-zoom-in bg-transparent text-left", "aria-label": lang2 === "en" ? "Open image preview" : "放大查看图片" }, /* @__PURE__ */ React.createElement("img", { src: image.src, alt: t(image.alt) || t(sec.title), loading: "lazy", className: "block h-full w-full object-cover aspect-[4/3]" })))), sec.caption && /* @__PURE__ */ React.createElement("p", { className: "max-w-[58ch] text-sm leading-[1.7] text-zinc-500" }, t(sec.caption))), images.length === 2 && /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-5 md:grid-cols-2" }, images.map((image, index) => renderFigure(image.src, image.alt, image.caption, `artificial-pair-${i}-${index}`))));
+      return /* @__PURE__ */ React.createElement("section", { key: `artificial-${i}`, className: "space-y-8" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-3xl" }, /* @__PURE__ */ React.createElement("p", { className: "mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-blue-600" }, sectionNumber), /* @__PURE__ */ React.createElement("h3", { className: "text-[clamp(1.7rem,3vw,2.6rem)] font-bold tracking-[-0.02em] leading-[1.08] text-zinc-900" }, t(sec.title)), t(sec.content) && /* @__PURE__ */ React.createElement("p", { className: "mt-5 max-w-[68ch] text-base md:text-lg leading-[1.8] font-medium text-zinc-600 whitespace-pre-wrap" }, t(sec.content))), hasWideImage && renderFigure(sec.image, sec.imageAlt, sec.caption, `artificial-image-${i}`), images.length === 4 && /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-5 md:grid-cols-2" }, images.map((image, index) => /* @__PURE__ */ React.createElement("figure", { key: `artificial-grid-${i}-${index}`, className: "overflow-hidden rounded-[26px] border border-zinc-200/45 bg-transparent shadow-[0_18px_40px_-28px_rgba(15,23,42,0.14)]" }, /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => setCertificatePreview(image.src), className: "block w-full cursor-zoom-in bg-transparent text-left", "aria-label": lang2 === "en" ? "Open image preview" : "放大查看图片" }, /* @__PURE__ */ React.createElement("img", { src: image.src, alt: t(image.alt) || t(sec.title), loading: "lazy", className: "block h-full w-full object-contain aspect-[4/3]" })))), sec.caption && /* @__PURE__ */ React.createElement("p", { className: "max-w-[58ch] text-sm leading-[1.7] text-zinc-500" }, t(sec.caption))), images.length === 2 && /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-5 md:grid-cols-2" }, images.map((image, index) => renderFigure(image.src, image.alt, image.caption, `artificial-pair-${i}-${index}`))));
     }));
   };
   const renderPassengerScreenReportDetail = () => {
@@ -1025,7 +1025,7 @@ var ProjectDetail = () => {
               src: pageSrc,
               alt: t(page.title),
               loading: chapterIndex === 0 ? "eager" : "lazy",
-              className: "block h-auto max-h-[62vh] w-full object-contain"
+              className: "block h-auto w-full object-contain"
             }
           )
         ))
@@ -1046,7 +1046,7 @@ var ProjectDetail = () => {
       src: sec.image,
       alt: t(sec.imageAlt) || t(sec.title),
       loading: index < 2 ? "eager" : "lazy",
-      className: "block w-full max-h-[58vh] object-contain"
+      className: "block h-auto w-full object-contain"
     })), sec.caption && /* @__PURE__ */ React.createElement("figcaption", {
       className: "border-t border-zinc-100 px-5 py-4 text-sm leading-relaxed text-zinc-500"
     }, t(sec.caption)));
@@ -1131,8 +1131,8 @@ var ProjectDetail = () => {
         { src: "assets/portfolio/coins-in-the-sky/photo-04.png", alt: { en: "Exhibition view photo 2", cn: "\u5C55\u793A\u8BB0\u5F55\u56FE 2" } }
       ]
     }];
-    const renderCoinsFigure = (src, alt, key, eager = false) => /* @__PURE__ */ React.createElement("figure", { key, className: "overflow-hidden rounded-[28px] border border-zinc-200/45 bg-transparent shadow-[0_20px_48px_-32px_rgba(15,23,42,0.14)]" }, /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => setCertificatePreview(src), className: "block w-full cursor-zoom-in bg-transparent text-left", "aria-label": lang2 === "en" ? "Open image preview" : "放大查看图片" }, /* @__PURE__ */ React.createElement("img", { src, alt: t(alt), loading: eager ? "eager" : "lazy", className: "block h-full w-full object-cover aspect-[4/3]" })));
-    const renderValueFigure = (item, index) => /* @__PURE__ */ React.createElement("figure", { key: `coins-value-${index}`, className: "rounded-[24px] border border-zinc-200/45 bg-transparent p-5 shadow-[0_18px_44px_-34px_rgba(15,23,42,0.16)]" }, /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => setCertificatePreview(item.src), className: "block w-full cursor-zoom-in overflow-hidden rounded-[18px] border border-zinc-200/45 bg-transparent text-left", "aria-label": lang2 === "en" ? "Open image preview" : "放大查看图片" }, /* @__PURE__ */ React.createElement("img", { src: item.src, alt: t(item.label), loading: "lazy", className: "block aspect-square w-full object-cover" })), /* @__PURE__ */ React.createElement("figcaption", { className: "pt-4 text-sm font-semibold leading-relaxed text-zinc-700" }, t(item.label)));
+    const renderCoinsFigure = (src, alt, key, eager = false) => /* @__PURE__ */ React.createElement("figure", { key, className: "overflow-hidden rounded-[28px] border border-zinc-200/45 bg-transparent shadow-[0_20px_48px_-32px_rgba(15,23,42,0.14)]" }, /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => setCertificatePreview(src), className: "block w-full cursor-zoom-in bg-transparent text-left", "aria-label": lang2 === "en" ? "Open image preview" : "放大查看图片" }, /* @__PURE__ */ React.createElement("img", { src, alt: t(alt), loading: eager ? "eager" : "lazy", className: "block h-full w-full object-contain aspect-[4/3]" })));
+    const renderValueFigure = (item, index) => /* @__PURE__ */ React.createElement("figure", { key: `coins-value-${index}`, className: "rounded-[24px] border border-zinc-200/45 bg-transparent p-5 shadow-[0_18px_44px_-34px_rgba(15,23,42,0.16)]" }, /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => setCertificatePreview(item.src), className: "block w-full cursor-zoom-in overflow-hidden rounded-[18px] border border-zinc-200/45 bg-transparent text-left", "aria-label": lang2 === "en" ? "Open image preview" : "放大查看图片" }, /* @__PURE__ */ React.createElement("img", { src: item.src, alt: t(item.label), loading: "lazy", className: "block aspect-square w-full object-contain" })), /* @__PURE__ */ React.createElement("figcaption", { className: "pt-4 text-sm font-semibold leading-relaxed text-zinc-700" }, t(item.label)));
     return /* @__PURE__ */ React.createElement("div", { className: "space-y-20 md:space-y-24" }, coinsSections.map((sec, i) => /* @__PURE__ */ React.createElement("section", { key: `coins-${sec.key}`, className: "space-y-8" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-3xl" }, /* @__PURE__ */ React.createElement("p", { className: "mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-blue-600" }, String(i + 1).padStart(2, "0")), /* @__PURE__ */ React.createElement("h3", { className: "text-[clamp(1.7rem,3vw,2.6rem)] font-bold tracking-[-0.02em] leading-[1.08] text-zinc-900" }, t(sec.title)), sec.content ? /* @__PURE__ */ React.createElement("p", { className: "mt-5 max-w-[68ch] text-base md:text-lg leading-[1.8] font-medium text-zinc-600 whitespace-pre-wrap" }, t(sec.content)) : null), sec.images?.length === 2 ? /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-5 md:grid-cols-2" }, sec.images.map((image, index) => renderCoinsFigure(image.src, image.alt, `coins-pair-${i}-${index}`, i === 0))) : null, sec.images?.length === 4 ? /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-5 md:grid-cols-2" }, sec.images.map((image, index) => renderCoinsFigure(image.src, image.alt, `coins-grid-${i}-${index}`))) : null, sec.motion?.length ? /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3" }, sec.motion.map((image, index) => renderCoinsFigure(image.src, image.alt, `coins-motion-${i}-${index}`))) : null, sec.values?.length ? /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4" }, sec.values.map((item, index) => renderValueFigure(item, index))) : null)));
   };
   const renderTriEcoDetail = () => {
@@ -1157,7 +1157,7 @@ var ProjectDetail = () => {
           controls: true,
           playsInline: true,
           preload: "metadata",
-          className: "block aspect-video w-full bg-black object-contain"
+          className: "block h-auto w-full bg-black object-contain"
         }
       ), /* @__PURE__ */ React.createElement("figcaption", { className: "bg-transparent px-5 py-4 text-sm font-medium leading-relaxed text-zinc-600" }, lang2 === "cn" ? "\u8865\u5145\u8BB0\u5F55\uFF1ASWEEEP Kuusakoski \u7535\u5B50\u5E9F\u5F03\u7269\u5904\u7406\u73B0\u573A\u3002" : "Supplementary field record from the SWEEEP Kuusakoski e-waste treatment facility.")));
     }));
@@ -1177,7 +1177,7 @@ var ProjectDetail = () => {
           mediaClassName: "aspect-[4000/2225]",
           imageClassName: "block h-full w-full object-contain"
         }
-      ), sectionVideo && /* @__PURE__ */ React.createElement("figure", { className: "mx-auto w-full max-w-4xl overflow-hidden rounded-[24px] border border-white/90 bg-zinc-950 shadow-[0_20px_48px_-34px_rgba(15,23,42,0.18)]" }, /* @__PURE__ */ React.createElement("video", { src: sectionVideo, controls: true, playsInline: true, preload: "metadata", className: "block aspect-video w-full bg-black object-contain" }), sec.caption && /* @__PURE__ */ React.createElement("figcaption", { className: "bg-transparent px-5 py-4 text-sm font-medium leading-relaxed text-zinc-600" }, t(sec.caption))));
+      ), sectionVideo && /* @__PURE__ */ React.createElement("figure", { className: "mx-auto w-full max-w-4xl overflow-hidden rounded-[24px] border border-white/90 bg-zinc-950 shadow-[0_20px_48px_-34px_rgba(15,23,42,0.18)]" }, /* @__PURE__ */ React.createElement("video", { src: sectionVideo, controls: true, playsInline: true, preload: "metadata", className: "block h-auto w-full bg-black object-contain" }), sec.caption && /* @__PURE__ */ React.createElement("figcaption", { className: "bg-transparent px-5 py-4 text-sm font-medium leading-relaxed text-zinc-600" }, t(sec.caption))));
     }));
   };
   const renderDecathlonDetail = () => {
@@ -1226,7 +1226,7 @@ var ProjectDetail = () => {
       const isActive = index === activeIndex;
       const isSelected = index === selectedDecathlonIndex;
       const buttonClass = `group relative min-h-[330px] overflow-hidden rounded-[28px] border bg-transparent text-left shadow-[0_22px_68px_-52px_rgba(15,23,42,0.34)] motion-surface md:h-full md:hover:flex-[2.1] hover:border-zinc-300 hover:opacity-100 hover:shadow-[0_32px_90px_-58px_rgba(15,23,42,0.42)] ${isActive ? "border-zinc-300 md:flex-[2.1] md:shadow-[0_32px_90px_-58px_rgba(15,23,42,0.42)]" : "border-zinc-200/70 md:flex-[0.72] md:opacity-55"} ${isSelected ? "ring-2 ring-blue-500/35" : ""}`;
-      const imageClass = `absolute inset-0 h-full w-full object-cover object-top transition duration-500 md:group-hover:scale-100 group-hover:opacity-95 group-hover:grayscale-0 ${isActive ? "scale-100 opacity-95" : "scale-100 opacity-22 grayscale md:scale-105"}`;
+      const imageClass = `absolute inset-0 h-full w-full object-contain object-top transition duration-500 md:group-hover:scale-100 group-hover:opacity-95 group-hover:grayscale-0 ${isActive ? "scale-100 opacity-95" : "scale-100 opacity-22 grayscale md:scale-105"}`;
       const numberClass = `text-[clamp(3.8rem,8vw,6.8rem)] font-light leading-none tracking-[-0.055em] transition duration-300 ${isActive ? "text-zinc-300/90" : "text-zinc-200/90"}`;
       const iconClass = `flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm transition ${isActive ? "text-blue-600" : "text-zinc-400"}`;
       const titleClass = `min-w-0 max-w-[16rem] break-words text-[clamp(1.7rem,3vw,3.4rem)] font-semibold leading-[0.98] tracking-[-0.045em] text-zinc-950 transition duration-300 [overflow-wrap:anywhere] group-hover:opacity-100 ${isActive ? "opacity-100" : "opacity-70 md:text-[1.55rem]"}`;
@@ -1266,7 +1266,7 @@ var ProjectDetail = () => {
       src: project.coverImage,
       alt: t(project.title),
       loading: "eager",
-      className: "block w-full aspect-video object-cover"
+      className: "block h-auto w-full object-contain"
     }
   ))));
   return /* @__PURE__ */ React.createElement("div", { className: "pt-32 md:pt-36 pb-28 px-5 md:px-8" }, /* @__PURE__ */ React.createElement("div", { className: "mx-auto max-w-[1320px]" }, renderEditorialHeader(), project.slug === "memory-parking-hmi" ? /* @__PURE__ */ React.createElement("div", { className: "touch-reveal border-t border-zinc-200/80 pt-20 mt-20 md:pt-28 md:mt-28" }, renderMemoryParkingDetail()) : project.slug === "passenger-screen-visual-impact" ? /* @__PURE__ */ React.createElement("div", { className: "touch-reveal mt-20 md:mt-28" }, renderPassengerScreenReportDetail()) : project.slug === "riverside-changsha" ? /* @__PURE__ */ React.createElement("div", { className: "touch-reveal border-t border-zinc-200/80 pt-20 mt-20 md:pt-28 md:mt-28" }, renderRiversideDetail()) : project.slug === "artificial-sky" ? /* @__PURE__ */ React.createElement("div", { className: "touch-reveal border-t border-zinc-200/80 pt-20 mt-20 md:pt-28 md:mt-28" }, renderArtificialSkyDetail()) : project.slug === "tri-eco-service" ? /* @__PURE__ */ React.createElement("div", { className: "touch-reveal border-t border-zinc-200/80 pt-20 mt-20 md:pt-28 md:mt-28" }, renderTriEcoDetail()) : project.slug === "sonic-patrol" ? /* @__PURE__ */ React.createElement("div", { className: "touch-reveal border-t border-zinc-200/80 pt-20 mt-20 md:pt-28 md:mt-28" }, renderSonicPatrolDetail()) : project.slug === "decathlon-website" ? /* @__PURE__ */ React.createElement("div", { className: "touch-reveal border-t border-zinc-200/80 pt-20 mt-20 md:pt-28 md:mt-28" }, renderDecathlonDetail()) : project.slug === "coins-in-the-sky" ? /* @__PURE__ */ React.createElement("div", { className: "touch-reveal border-t border-zinc-200/80 pt-20 mt-20 md:pt-28 md:mt-28" }, renderCoinsInTheSkyDetail()) : project.sections.length > 0 ? /* @__PURE__ */ React.createElement("div", null, project.sections.map(renderEditorialSection)) : /* @__PURE__ */ React.createElement("div", { className: "touch-reveal border-t border-zinc-200/80 pt-20 mt-20 md:pt-28 md:mt-28 text-zinc-500 text-lg font-medium" }, lang2 === "en" ? "Documentation in progress." : "\u5185\u5BB9\u6574\u7406\u4E2D\u3002"), certificatePreview && !activeCertificate && /* @__PURE__ */ React.createElement(

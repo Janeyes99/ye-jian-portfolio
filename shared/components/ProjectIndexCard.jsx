@@ -46,7 +46,7 @@ var ProjectIndexCard = ({
       src: detailProject.coverImage,
       alt: t(cardTitle),
       loading: "lazy",
-      className: "h-full w-full object-cover bg-white motion-surface group-hover:opacity-[0.96]"
+      className: "h-full w-full object-contain bg-white motion-surface group-hover:opacity-[0.96]"
     })), /* @__PURE__ */ React.createElement("div", {
       className: "p-5 md:p-6"
     }, /* @__PURE__ */ React.createElement("div", {
