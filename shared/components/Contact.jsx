@@ -53,7 +53,7 @@ var Contact = () => {
   }, /* @__PURE__ */ React.createElement(BookOpen, {
     size: 20,
     className: "mr-3"
-  }), lang2 === "en" ? " Xiaohongshu" : " 小红书"))), /* @__PURE__ */ React.createElement("div", {
+  }), lang2 === "en" ? " REDnote" : " 小红书"))), /* @__PURE__ */ React.createElement("div", {
     className: "pt-10 border-t border-zinc-200"
   }, /* @__PURE__ */ React.createElement("button", {
     className: "flex items-center justify-center w-full md:w-auto px-10 py-5 bg-zinc-900 text-white rounded-full hover:bg-blue-600 motion-color font-bold text-base shadow-xl"
