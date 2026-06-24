@@ -27,7 +27,7 @@
 |---|----------|--------|----------|------|
 | 15 | `ea01u/` | EA01U | ❌ | PLACEHOLDER |
 | 16 | `jetour-traveler-2026/` | 2026 JETOUR Traveler | ❌ | PLACEHOLDER |
-| 17 | `miracle-miles/` | Miracle Miles | ❌ | PLACEHOLDER |
+| 17 | `miracle-miles/` | Miracle Miles / 美迈科技 | ❌ | PLACEHOLDER |
 
 ## 素材映射
 

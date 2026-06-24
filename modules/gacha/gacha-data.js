@@ -246,7 +246,7 @@ export const gachaProjectCatalog = [{
   year: "2024",
   title: {
     en: "Miracle Miles",
-    cn: "Miracle Miles"
+    cn: "美迈科技"
   },
   scores: {
     screenMatter: 30,
