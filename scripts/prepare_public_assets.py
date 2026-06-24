@@ -121,7 +121,11 @@ def main():
     parser.add_argument("--max-height", type=int, default=12000)
     parser.add_argument("--jpeg-quality", type=int, default=94)
     parser.add_argument("--webp-quality", type=int, default=94)
-    parser.add_argument("--signature", default="Ye Jian Design")
+    parser.add_argument(
+        "--signature",
+        default="",
+        help="Optional visible corner signature. Empty by default so portfolio viewing stays clean.",
+    )
     parser.add_argument(
         "--resize-display-assets",
         action="store_true",
