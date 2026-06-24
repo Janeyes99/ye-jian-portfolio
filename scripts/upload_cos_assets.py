@@ -6,8 +6,8 @@ import sys
 from pathlib import Path
 
 
-BUCKET = "yejian-portfolio-assets-1445614055"
-REGION = "ap-hongkong"
+BUCKET = "yejian-portfolio-assets-cn-1445614055"
+REGION = "ap-guangzhou"
 DEFAULT_PREFIX = "portfolio"
 
 
