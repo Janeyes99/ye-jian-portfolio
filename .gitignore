@@ -4,25 +4,18 @@ node_modules/
 # Build output
 dist/
 
-# Large portfolio media lives in Tencent COS.
-# Keep local working copies out of GitHub so agents do not accidentally upload
-# hundreds of MB of images/videos into the code repo.
+# Keep large portfolio videos out of GitHub by default, but publish display
+# images from the repo so the site does not spend COS traffic on still media.
 assets/portfolio/
 !assets/portfolio/
-assets/portfolio/*
-!assets/portfolio/backer/
-assets/portfolio/backer/*
-!assets/portfolio/backer/kaoshan.jpg
-!assets/portfolio/backer/process-pdf/
-!assets/portfolio/backer/process-pdf/*.jpg
-!assets/portfolio/path/
-assets/portfolio/path/*
-!assets/portfolio/path/material-test-01.jpg
-!assets/portfolio/path/material-test-02.jpg
-!assets/portfolio/path/literature-model-test-01.jpg
-!assets/portfolio/path/literature-model-test-02.jpg
-!assets/portfolio/path/literature-model-test-03.jpg
-!assets/portfolio/path/validation-test.png
+assets/portfolio/**
+!assets/portfolio/**/
+!assets/portfolio/**/*.gif
+!assets/portfolio/**/*.jpg
+!assets/portfolio/**/*.jpeg
+!assets/portfolio/**/*.png
+!assets/portfolio/**/*.svg
+!assets/portfolio/**/*.webp
 !assets/portfolio/path/touch-hold-color.mp4
 !assets/portfolio/path/touch-click-color.mp4
 

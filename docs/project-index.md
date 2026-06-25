@@ -31,5 +31,5 @@
 
 ## 素材映射
 
-每个项目的源素材位于 `assets/portfolio/<project-name>/`；线上展示素材统一上传到腾讯云 COS：`https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/<project-name>/`。
+每个项目的展示图片位于 `assets/portfolio/<project-name>/`，并随 GitHub Pages 一起发布；视频和音频仍按需使用外部托管，避免把页面仓库变成过大的视频仓库。
 占位项目暂无素材目录，待用户补充后创建对应目录；新增或替换素材后，需要重新运行公开素材生成与 COS 上传流程。
