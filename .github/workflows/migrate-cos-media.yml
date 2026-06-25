@@ -87,9 +87,14 @@ jobs:
             'https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/thermosilicone/demo.mp4?v=clean-20260625': 'assets/portfolio/thermosilicone/demo.mp4',
             'https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/touch-n-go/video.mp4?v=clean-20260625': 'assets/portfolio/touch-n-go/video.mp4',
           }
+          bucket = 'https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/'
           for old, new in replacements.items():
             text = text.replace(old, new)
             text = text.replace(old + '\\', new)
+          text = text.replace(bucket, 'assets/portfolio/')
+          text = text.replace(bucket.replace('/', '\\/'), 'assets\\/portfolio\\/')
+          text = text.replace('?v=clean-20260625', '')
+          text = text.replace('\\?v=clean-20260625', '')
           # Keep all videos click-to-play by default. This page stores bundled React code in index.html.
           text = text.replace('preload: options.preload || "metadata"', 'preload: options.preload || "none"')
           text = text.replace('autoPlay: true,', 'autoPlay: false,')
