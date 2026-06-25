@@ -96,9 +96,18 @@ jobs:
           text = text.replace('?v=clean-20260625', '')
           text = text.replace('\\?v=clean-20260625', '')
           # Keep all videos click-to-play by default. This page stores bundled React code in index.html.
-          text = text.replace('preload: options.preload || "metadata"', 'preload: options.preload || "none"')
-          text = text.replace('autoPlay: true,', 'autoPlay: false,')
-          text = text.replace('preload: "auto"', 'preload: "none"')
+          media_loading_replacements = {
+              'preload: options.preload || "metadata"': 'preload: options.preload || "none"',
+              'preload: options.preload || \\"metadata\\"': 'preload: options.preload || \\"none\\"',
+              'preload: "metadata"': 'preload: "none"',
+              'preload: \\"metadata\\"': 'preload: \\"none\\"',
+              'preload: "auto"': 'preload: "none"',
+              'preload: \\"auto\\"': 'preload: \\"none\\"',
+              'autoPlay: true,': 'autoPlay: false,',
+              'autoPlay: true': 'autoPlay: false',
+          }
+          for old, new in media_loading_replacements.items():
+              text = text.replace(old, new)
           p.write_text(text)
           PY
 
