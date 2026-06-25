@@ -1,0 +1,115 @@
+name: Migrate COS media to GitHub Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  migrate-media:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Download, compress, and generate posters
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p work/cos-originals
+
+          process_video() {
+            local url="$1"
+            local out="$2"
+            local poster="$3"
+            local height="$4"
+            local crf="$5"
+            local strip_audio="$6"
+            local tmp="work/cos-originals/$(basename "${out}")"
+            mkdir -p "$(dirname "$out")" "$(dirname "$poster")"
+            curl -L --fail --retry 3 --retry-delay 3 "$url" -o "$tmp"
+            ffmpeg -y -i "$tmp" -vf "scale='min(1920,iw)':-2,fps=30" -frames:v 1 -q:v 2 "$poster"
+            if [ "$strip_audio" = "yes" ]; then
+              ffmpeg -y -i "$tmp" -vf "scale=-2:min(${height}\,ih),fps=30" -c:v libx264 -preset slow -crf "$crf" -pix_fmt yuv420p -movflags +faststart -an "$out"
+            else
+              ffmpeg -y -i "$tmp" -vf "scale=-2:min(${height}\,ih),fps=30" -c:v libx264 -preset slow -crf "$crf" -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 96k "$out"
+            fi
+            bytes=$(stat -c%s "$out")
+            if [ "$bytes" -ge 50000000 ]; then
+              echo "::error file=$out::Compressed file is still >= 50MB ($bytes bytes). Increase CRF or lower resolution."
+              exit 1
+            fi
+          }
+
+          process_audio() {
+            local url="$1"
+            local out="$2"
+            local tmp="work/cos-originals/$(basename "${out}")"
+            mkdir -p "$(dirname "$out")"
+            curl -L --fail --retry 3 --retry-delay 3 "$url" -o "$tmp"
+            ffmpeg -y -i "$tmp" -vn -c:a libmp3lame -b:a 128k "$out"
+          }
+
+          process_video "https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/artificial-sky/demo.mp4?v=clean-20260625" "assets/portfolio/artificial-sky/demo.mp4" "assets/portfolio/artificial-sky/demo-poster.jpg" 1080 24 no
+          process_video "https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/coins-in-the-sky/hero-video.mp4?v=clean-20260625" "assets/portfolio/coins-in-the-sky/hero-video.mp4" "assets/portfolio/coins-in-the-sky/hero-video-poster.jpg" 1080 25 no
+          process_video "https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/path/demo.mp4?v=clean-20260625" "assets/portfolio/path/demo.mp4" "assets/portfolio/path/demo-poster.jpg" 1080 26 no
+          process_video "https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/path/touch-click-color.mp4?v=clean-20260625" "assets/portfolio/path/touch-click-color.mp4" "assets/portfolio/path/touch-click-color-poster.jpg" 720 25 yes
+          process_video "https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/path/touch-hold-color.mp4?v=clean-20260625" "assets/portfolio/path/touch-hold-color.mp4" "assets/portfolio/path/touch-hold-color-poster.jpg" 720 25 yes
+          process_video "https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/snap-inflatables/demo.mp4?v=clean-20260625" "assets/portfolio/snap-inflatables/demo.mp4" "assets/portfolio/snap-inflatables/demo-poster.jpg" 1080 26 no
+          process_video "https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/sonic-patrol/grand-challenge.mp4?v=clean-20260625" "assets/portfolio/sonic-patrol/grand-challenge.mp4" "assets/portfolio/sonic-patrol/grand-challenge-poster.jpg" 1080 25 no
+          process_video "https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/thermosilicone/demo.mp4?v=clean-20260625" "assets/portfolio/thermosilicone/demo.mp4" "assets/portfolio/thermosilicone/demo-poster.jpg" 1080 24 no
+          process_video "https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/touch-n-go/video.mp4?v=clean-20260625" "assets/portfolio/touch-n-go/video.mp4" "assets/portfolio/touch-n-go/video-poster.jpg" 1080 26 no
+          process_audio "https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/riverside-changsha/wechat/riverside-music.mp3" "assets/portfolio/riverside-changsha/wechat/riverside-music.mp3"
+
+      - name: Replace COS references and disable eager video loading
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          text = p.read_text()
+          replacements = {
+            'https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/artificial-sky/demo.mp4?v=clean-20260625': 'assets/portfolio/artificial-sky/demo.mp4',
+            'https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/coins-in-the-sky/hero-video.mp4?v=clean-20260625': 'assets/portfolio/coins-in-the-sky/hero-video.mp4',
+            'https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/path/demo.mp4?v=clean-20260625': 'assets/portfolio/path/demo.mp4',
+            'https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/path/touch-click-color.mp4?v=clean-20260625': 'assets/portfolio/path/touch-click-color.mp4',
+            'https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/path/touch-hold-color.mp4?v=clean-20260625': 'assets/portfolio/path/touch-hold-color.mp4',
+            'https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/riverside-changsha/wechat/riverside-music.mp3': 'assets/portfolio/riverside-changsha/wechat/riverside-music.mp3',
+            'https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/snap-inflatables/demo.mp4?v=clean-20260625': 'assets/portfolio/snap-inflatables/demo.mp4',
+            'https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/sonic-patrol/grand-challenge.mp4?v=clean-20260625': 'assets/portfolio/sonic-patrol/grand-challenge.mp4',
+            'https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/thermosilicone/demo.mp4?v=clean-20260625': 'assets/portfolio/thermosilicone/demo.mp4',
+            'https://yejian-portfolio-assets-cn-1445614055.cos.ap-guangzhou.myqcloud.com/portfolio/touch-n-go/video.mp4?v=clean-20260625': 'assets/portfolio/touch-n-go/video.mp4',
+          }
+          for old, new in replacements.items():
+            text = text.replace(old, new)
+            text = text.replace(old + '\\', new)
+          # Keep all videos click-to-play by default. This page stores bundled React code in index.html.
+          text = text.replace('preload: options.preload || "metadata"', 'preload: options.preload || "none"')
+          text = text.replace('autoPlay: true,', 'autoPlay: false,')
+          text = text.replace('preload: "auto"', 'preload: "none"')
+          p.write_text(text)
+          PY
+
+          if grep -R "myqcloud.com" -n index.html; then
+            echo "::error::COS references remain in index.html"
+            exit 1
+          fi
+
+      - name: Report generated media sizes
+        run: |
+          find assets/portfolio -type f \( -name '*.mp4' -o -name '*.mp3' -o -name '*-poster.jpg' \) -printf '%s %p\n' | sort -nr
+
+      - name: Commit migration output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html assets/portfolio
+          git commit -m "Migrate COS media to local GitHub Pages assets" || exit 0
+          git push
