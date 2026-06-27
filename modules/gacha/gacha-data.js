@@ -242,6 +242,7 @@ export const gachaProjectCatalog = [{
   }
 }, {
   id: "g18",
+  slug: "miracle-miles",
   category: "service-brand",
   year: "2024",
   title: {
