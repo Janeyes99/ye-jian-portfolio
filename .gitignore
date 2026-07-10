@@ -18,6 +18,7 @@ assets/portfolio/**
 !assets/portfolio/**/*.webp
 !assets/portfolio/path/touch-hold-color.mp4
 !assets/portfolio/path/touch-click-color.mp4
+!assets/portfolio/memory-parking/memory-parking-promo-zh.mp4
 
 # IDE
 .vscode/
