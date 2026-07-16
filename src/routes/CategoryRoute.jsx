@@ -3,6 +3,17 @@ import { LanguageContext, RouteContext } from '../app/contexts.jsx';
 import { gachaProjectCatalog, siteContent } from '../data/catalog.js';
 import ProjectIndexCard from '../components/ProjectIndexCard.jsx';
 
+const swapProjectPositions = (projects, firstSlug, secondSlug) => {
+  const nextProjects = [...projects];
+  const firstIndex = nextProjects.findIndex((project) => project.slug === firstSlug);
+  const secondIndex = nextProjects.findIndex((project) => project.slug === secondSlug);
+
+  if (firstIndex === -1 || secondIndex === -1) return nextProjects;
+
+  [nextProjects[firstIndex], nextProjects[secondIndex]] = [nextProjects[secondIndex], nextProjects[firstIndex]];
+  return nextProjects;
+};
+
 var CategoryPage = () => {
   const {
     route
@@ -12,10 +23,11 @@ var CategoryPage = () => {
   } = useContext(LanguageContext);
   const categoryKey = route.path.replace("/", "");
   const info = siteContent.categories[categoryKey];
-  const projects = gachaProjectCatalog.map((project, catalogIndex) => ({
+  const sortedProjects = gachaProjectCatalog.map((project, catalogIndex) => ({
     ...project,
     catalogIndex
   })).filter((project) => project.category === categoryKey).sort((a, b) => Number(b.year) - Number(a.year) || a.catalogIndex - b.catalogIndex);
+  const projects = categoryKey === "hmi" ? swapProjectPositions(sortedProjects, "smart-solution-4-motion-comfort", "memory-parking-hmi") : sortedProjects;
   return /* @__PURE__ */ React.createElement("div", {
     className: "pt-36 md:pt-40 pb-24 px-6 max-w-7xl mx-auto animate-fade-up"
   }, /* @__PURE__ */ React.createElement("header", {
