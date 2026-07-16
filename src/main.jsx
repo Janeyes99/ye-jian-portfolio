@@ -1,16 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from '../shared/js/App.jsx';
-import { LanguageProvider } from '../shared/js/i18n';
-import { Router } from '../shared/js/router';
+import App from './app/PortfolioApp.jsx';
+import { installMediaProtection } from './media-protection.js';
+import './index.css';
 
-const root = createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <LanguageProvider>
-      <Router>
-        <App />
-      </Router>
-    </LanguageProvider>
-  </React.StrictMode>
-);
+installMediaProtection();
+
+createRoot(document.getElementById('root')).render(React.createElement(App));

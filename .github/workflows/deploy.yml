@@ -27,16 +27,13 @@ jobs:
           node-version: 24
 
       - name: Install dependencies
-        run: |
-          npm install
-          echo "--- npm ls ---"
-          npm ls --depth=0 || true
+        run: npm ci
 
       - name: Build with Vite
-        run: |
-          npm run build
-          echo "--- dist contents ---"
-          ls -la dist/
+        run: npm run build
+
+      - name: Validate production bundle
+        run: npm run check:build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
