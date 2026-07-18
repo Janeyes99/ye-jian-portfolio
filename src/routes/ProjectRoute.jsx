@@ -1074,7 +1074,7 @@ var ProjectDetail = ({ project }) => {
     };
     const controlPanel = e(
       "div",
-      { className: "lg:col-span-8" },
+      { className: "w-full" },
       e(
         "div",
         { className: "flex flex-wrap gap-2 rounded-[16px] border border-slate-800 bg-slate-900/80 p-3" },
@@ -1133,22 +1133,22 @@ var ProjectDetail = ({ project }) => {
     );
     const configPanel = e(
       "div",
-      { className: "rounded-[16px] border border-slate-800 bg-slate-900/82 p-4 lg:col-span-4" },
+      { className: "w-full rounded-[16px] border border-slate-800 bg-slate-900/82 p-4" },
       e("div", { className: "mb-4 border-b border-white/10 pb-3" }, e("p", { className: "text-sm font-bold text-cyan-300" }, text("Visual Parameter Configuration", "视觉参数配置"))),
       e(
         "div",
-        { className: "space-y-5" },
+        { className: "grid grid-cols-1 gap-5 md:grid-cols-3 md:items-start" },
         e(
           "div",
           null,
           e("p", { className: "mb-2 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500" }, text("Visual marker layer", "视觉标记层")),
-          e("div", { className: "space-y-2" }, markerOptions.map(switchButton))
+          e("div", { className: "grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2" }, markerOptions.map(switchButton))
         ),
         e(
           "div",
           null,
           e("p", { className: "mb-2 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500" }, text("Image enhancement / performance", "画面增强 / 性能")),
-          e("div", { className: "space-y-2" }, effectOptions.map(switchButton))
+          e("div", { className: "grid grid-cols-1 gap-2 sm:grid-cols-3 md:grid-cols-1 xl:grid-cols-3" }, effectOptions.map(switchButton))
         ),
         e(
           "div",
@@ -1182,7 +1182,7 @@ var ProjectDetail = ({ project }) => {
           { className: "min-h-[620px] w-full p-3 md:aspect-video md:min-h-0 md:p-4" },
           e("div", { className: "relative flex h-full flex-col justify-center gap-3 md:block md:[perspective:1180px] md:[perspective-origin:50%_48%] md:[transform-style:preserve-3d]" }, ["left", "center", "right"].map(renderScreenSlot))
         ),
-        e("div", { className: "grid grid-cols-1 gap-5 border-t border-white/10 bg-slate-950/96 p-4 md:p-5 lg:grid-cols-12" }, controlPanel, configPanel)
+        e("div", { className: "space-y-4 border-t border-white/10 bg-slate-950/96 p-4 md:p-5" }, controlPanel, configPanel)
       )
     );
   };
