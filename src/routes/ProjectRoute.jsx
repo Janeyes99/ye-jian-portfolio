@@ -829,12 +829,12 @@ var ProjectDetail = ({ project }) => {
           key: option.key,
           type: "button",
           onClick: () => toggleConfig(option.key),
-          className: `flex items-center justify-between rounded-[10px] border px-3 py-2 text-left text-xs font-semibold transition ${active ? "border-cyan-400/45 bg-cyan-400/12 text-cyan-100" : "border-slate-700/80 bg-slate-900/60 text-slate-400 hover:border-slate-500"}`
+          className: `flex h-11 w-full items-center justify-between rounded-[10px] border px-3 text-left text-xs font-semibold transition ${active ? "border-cyan-400/45 bg-cyan-400/12 text-cyan-100" : "border-slate-700/80 bg-slate-900/60 text-slate-400 hover:border-slate-500"}`
         },
-        e("span", null, option.label),
+        e("span", { className: "min-w-0 pr-2 leading-4" }, option.label),
         e(
           "span",
-          { className: `relative h-4 w-8 rounded-full transition ${active ? "bg-cyan-400" : "bg-slate-700"}` },
+          { className: `relative h-4 w-8 shrink-0 rounded-full transition ${active ? "bg-cyan-400" : "bg-slate-700"}` },
           e("span", {
             className: "absolute top-0.5 h-3 w-3 rounded-full bg-white shadow-sm transition",
             style: { left: active ? "18px" : "2px" }
@@ -1137,33 +1137,33 @@ var ProjectDetail = ({ project }) => {
       e("div", { className: "mb-4 border-b border-white/10 pb-3" }, e("p", { className: "text-sm font-bold text-cyan-300" }, text("Visual Parameter Configuration", "视觉参数配置"))),
       e(
         "div",
-        { className: "grid grid-cols-1 gap-5 md:grid-cols-3 md:items-start" },
+        { className: "divide-y divide-white/10" },
         e(
           "div",
-          null,
-          e("p", { className: "mb-2 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500" }, text("Visual marker layer", "视觉标记层")),
-          e("div", { className: "grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2" }, markerOptions.map(switchButton))
+          { className: "grid grid-cols-1 gap-3 pb-4 md:grid-cols-[9.5rem_minmax(0,1fr)] md:items-start" },
+          e("p", { className: "flex h-11 items-center text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500" }, text("Visual marker layer", "视觉标记层")),
+          e("div", { className: "grid grid-cols-2 gap-2 lg:grid-cols-4" }, markerOptions.map(switchButton))
         ),
         e(
           "div",
-          null,
-          e("p", { className: "mb-2 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500" }, text("Image enhancement / performance", "画面增强 / 性能")),
-          e("div", { className: "grid grid-cols-1 gap-2 sm:grid-cols-3 md:grid-cols-1 xl:grid-cols-3" }, effectOptions.map(switchButton))
+          { className: "grid grid-cols-1 gap-3 py-4 md:grid-cols-[9.5rem_minmax(0,1fr)] md:items-start" },
+          e("p", { className: "flex h-11 items-center text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500" }, text("Image enhancement / performance", "画面增强 / 性能")),
+          e("div", { className: "grid grid-cols-2 gap-2 lg:grid-cols-4" }, effectOptions.map(switchButton))
         ),
         e(
           "div",
-          null,
-          e("p", { className: "mb-2 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500" }, text("HUD information load", "HUD 信息负载")),
+          { className: "grid grid-cols-1 gap-3 pt-4 md:grid-cols-[9.5rem_minmax(0,1fr)] md:items-start" },
+          e("p", { className: "flex h-11 items-center text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500" }, text("HUD information load", "HUD 信息负载")),
           e(
             "div",
-            { className: "grid grid-cols-3 gap-2" },
+            { className: "grid grid-cols-2 gap-2 lg:grid-cols-4" },
             infoOptions.map((option) => e(
               "button",
               {
                 key: option.key,
                 type: "button",
                 onClick: () => setSs4HeroConfig((prev) => ({ ...prev, infoLoad: option.key })),
-                className: `rounded-[10px] border px-2 py-2 text-xs font-bold transition ${ss4HeroConfig.infoLoad === option.key ? "border-cyan-300 bg-cyan-400/80 text-white" : "border-slate-700 bg-slate-800 text-slate-400 hover:border-slate-500"}`
+                className: `h-11 w-full rounded-[10px] border px-3 text-xs font-semibold transition ${ss4HeroConfig.infoLoad === option.key ? "border-cyan-400/45 bg-cyan-400/12 text-cyan-100" : "border-slate-700/80 bg-slate-900/60 text-slate-400 hover:border-slate-500"}`
               },
               option.label
             ))
