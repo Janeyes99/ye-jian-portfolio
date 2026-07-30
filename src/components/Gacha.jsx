@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { LanguageContext, RouteContext } from '../app/contexts.jsx';
 import { prefetchRoute } from '../app/route-loaders.js';
-import { gachaDimensions, gachaProjectCatalog } from '../data/catalog.js';
+import { gachaDimensions, gachaProjectCatalog, gachaScoreKeys } from '../data/catalog.js';
 import { prefetchProjectData } from '../data/project-loaders.js';
 
 var capsuleLayouts = [[{
@@ -898,13 +898,16 @@ var InteractiveGacha = () => {
   }), /* @__PURE__ */ React.createElement("div", {
     className: "absolute inset-x-4 bottom-2 h-5 rounded-full bg-white/35 blur-md"
   }), hasDispensedCapsule && /* @__PURE__ */ React.createElement("div", {
-    className: "absolute left-1/2 top-1/2 z-20 w-12 h-12 -translate-x-1/2 -translate-y-1/2"
+    className: "absolute left-1/2 top-1/2 z-20 w-[72px] h-[72px] -translate-x-1/2 -translate-y-1/2"
   }, /* @__PURE__ */ React.createElement("button", {
     type: "button",
     onClick: openDispensedCapsule,
     disabled: gachaStatus !== "capsuleReady",
     "aria-label": lang2 === "en" ? "Open capsule" : "\u6253\u5F00\u626D\u86CB",
-    className: "relative block w-12 h-12 rounded-full animate-capsule-exit motion-outlet-capsule focus:outline-none focus-visible:outline-none p-0 border-0 bg-transparent " + (gachaStatus === "capsuleReady" ? "cursor-pointer" : "pointer-events-none")
+    "data-testid": "gacha-open-capsule",
+    className: "relative flex w-[72px] h-[72px] items-center justify-center rounded-full motion-outlet-capsule touch-manipulation focus:outline-none focus-visible:outline-none p-0 border-0 bg-transparent " + (gachaStatus === "capsuleReady" ? "cursor-pointer" : "pointer-events-none")
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "relative w-12 h-12 rounded-full animate-capsule-exit pointer-events-none"
   }, /* @__PURE__ */ React.createElement(CapsuleShell, {
     color: dispensedCapsuleColor,
     payloadGradient: dispensedCapsuleStyle.payloadGradient,
@@ -912,7 +915,7 @@ var InteractiveGacha = () => {
     rot: dispensedCapsuleRot,
     variant: dispensedCapsuleVariant,
     forceDomePayload: true
-  }))))))), (gachaStatus === "loading" || gachaStatus === "results") && /* @__PURE__ */ React.createElement("div", {
+  })))))))), (gachaStatus === "loading" || gachaStatus === "results") && /* @__PURE__ */ React.createElement("div", {
     className: "absolute inset-0 z-50 flex items-center justify-center pointer-events-auto"
   }, /* @__PURE__ */ React.createElement("div", {
     className: "absolute inset-0 bg-white/30 backdrop-blur-md rounded-[3.5rem] transition-opacity duration-[240ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
