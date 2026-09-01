@@ -116,7 +116,7 @@ export default {
         "en": "Competitive product analysis identifies recurring patterns such as waiting feedback, generated results, rating feedback, quick commands, and follow-up prompts. These patterns become references for voice overlays, content cards, and operation confirmation in the vehicle interface.",
         "cn": "对主流 AI 产品的对话组件进行拆解后，界面模式被归纳为等待反馈、生成结果、评价反馈、快捷指令和继续追问等类型。这些模式为车机中的语音浮层、内容卡片和操作确认提供了组件参考。"
       },
-      "image": "assets/portfolio/ea01u/research-03-ai-product-components.png",
+      "image": "assets/portfolio/ea01u/research-03-ai-product-components-v2.png",
       "imageAlt": {
         "en": "Competitive analysis of AI product conversation components",
         "cn": "AI 产品对话组件竞品分析"
